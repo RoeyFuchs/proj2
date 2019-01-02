@@ -13,10 +13,10 @@ class InputStream : public std::istream {
   InputStream(int newsockfd) {
       this->newsockfd = newsockfd;
   }
-  std::string operator>>(void*) {
-      const char * a[MAX_CHARS];
-      ::read(this->newsockfd, a, MAX_CHARS);
-      return std::string(*a);
+  void operator>>(std::string& str) {
+      char buffer[MAX_CHARS] = {};
+      ::read(this->newsockfd, buffer, MAX_CHARS);
+      str = std::string(buffer);
   }
 };
 

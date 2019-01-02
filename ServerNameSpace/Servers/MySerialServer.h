@@ -17,12 +17,12 @@
 
 class MySerialServer : public Server {
   int sockfd;
-  ClientHendler clientHendler;
+  ClientHendler* clientHendler;
   bool active;
  public:
 
   MySerialServer(){}
-  virtual void Open(int port, ClientHendler &clientHendler) {
+  virtual void Open(int port, ClientHendler *clientHendler) {
       this->clientHendler = clientHendler; }
   virtual void Open(int port) {
       int sockfd, newsockfd, clilen;
@@ -71,14 +71,14 @@ class MySerialServer : public Server {
 
 
           /* Write a response to the client */
-          OutputStream outtStream(newsockfd);
+          OutputStream outStream(newsockfd);
           InputStream inputStream(newsockfd);
-          outtStream << "dsds";
-          outtStream << "ds1ds";
-          outtStream << "dsd2s";
-          /*string a;
+          outStream << "dsds";
+          outStream << "ds1ds";
+          outStream << "dsd2s";
+          string a;
           inputStream >> a ;
-          cout << a;*/
+          cout << a;
 
       }
   }

@@ -10,7 +10,7 @@ class OutputStream : public std::ostream {
   OutputStream(int newsockfd) {
       this->newsockfd = newsockfd;
   }
-  OutputStream &operator>>(const char* arr) {
+  OutputStream &operator<<(const char* arr) {
       std::string str(arr);
       ::write(this->newsockfd, str.c_str(), str.length());
       return *this;
