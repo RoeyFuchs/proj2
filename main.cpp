@@ -1,6 +1,9 @@
 #include <iostream>
+#include "ServerNameSpace/Servers/MySerialServer.h"
 int main() {
-  std::cout << "Hello, World!" << std::endl;
-  std::cout<< "check 3";
+  MySerialServer* ms = new MySerialServer();
+  ms->Open(5400);
+  std::cout<< "check"<<std::endl;
+  ms->Start();
   return 0;
 }
