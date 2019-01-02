@@ -10,7 +10,7 @@ using namespace std;
 
 class ClientHendler {
 public:
-    void HandleClient(istream inputStream, ostream outputStream);
+    virtual void HandleClient(istream inputStream, ostream outputStream)=0;
 
 };
 
