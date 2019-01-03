@@ -8,7 +8,7 @@
 #include "ClientHendler.h"
 
 class Server {
-  virtual void Open(int port, ClientHendler& clientHendler) = 0;
+  virtual void Open(int port, ClientHendler* clientHendler) = 0;
   virtual void Stop() = 0;
 };
 
