@@ -5,14 +5,15 @@
 #ifndef PROJ2_STATE_H
 #define PROJ2_STATE_H
 using namespace std;
+
+#include <memory.h>
 #include <string>
 template <class T>
 class State{
 private:
     T state;
     double cost;
-    //TODO: CAME FROM
-//    State<T> cameFrom;
+    shared_ptr<State<T>> cameFrom;
 public:
     State(T state){
         this->state= state;
