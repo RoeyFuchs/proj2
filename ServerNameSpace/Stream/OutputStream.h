@@ -15,6 +15,10 @@ class OutputStream : public std::ostream {
       ::write(this->newsockfd, str.c_str(), str.length());
       return *this;
   }
+  OutputStream &operator<<(std::string str) {
+      ::write(this->newsockfd, str.c_str(), str.length());
+      return *this;
+  }
 
 };
 #endif //PROJ2_OUTPUTSTREAM_H
