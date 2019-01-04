@@ -12,6 +12,11 @@ public:
     StringReverserSearchable(string problem){
         this->problem= problem;
     }
+    StringReverserSearchable(vector<string> pro){
+        for (int i = 0; i <problem.size() ; ++i) {
+            this->problem+= pro[i];
+        }
+    }
     State<string> GetInitialState(){
         return this->problem;
     }

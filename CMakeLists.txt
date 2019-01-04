@@ -6,4 +6,4 @@ SET(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-pthread")
 
 add_executable(proj2 main.cpp ServerNameSpace/Server.h ServerNameSpace/ClientHendlers/ClientHendler.h
         ServerNameSpace/ClientHendlers/ClientHendler.cpp ServerNameSpace/Servers/MySerialServer.h
-        ServerNameSpace/Stream/InputStream.h ServerNameSpace/Stream/OutputStream.h ServerNameSpace/CacheManager/CacheManager.h ServerNameSpace/Solver/Searchable.h ServerNameSpace/Solver/StringReverserSearchable.h ServerNameSpace/Solver/Searcher.h ServerNameSpace/Solver/StringReverserSearcher.h ServerNameSpace/Solver/State.h)
+        ServerNameSpace/Stream/InputStream.h ServerNameSpace/Stream/OutputStream.h ServerNameSpace/CacheManager/CacheManager.h ServerNameSpace/Solver/Searchable.h ServerNameSpace/Solver/StringReverserSearchable.h ServerNameSpace/Solver/Searcher.h ServerNameSpace/Solver/StringReverserSearcher.h ServerNameSpace/Solver/State.h ServerNameSpace/CacheManager/FileCacheManager.h ServerNameSpace/Utils/FileTextHendler.cpp ServerNameSpace/Utils/FileTextHendler.h)
