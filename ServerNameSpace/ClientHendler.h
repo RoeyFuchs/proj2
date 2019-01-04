@@ -7,10 +7,12 @@
 using namespace std;
 #include <istream>
 #include <ostream>
+#include "Stream/InputStream.h"
+#include "Stream/OutputStream.h"
 
 class ClientHendler {
 public:
-    virtual void HandleClient(istream inputStream, ostream outputStream)=0;
+    virtual void HandleClient(InputStream inputStream, OutputStream outputStream)=0;
 
 };
 
