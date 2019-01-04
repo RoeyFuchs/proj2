@@ -9,8 +9,11 @@ using namespace std;
 #include <ostream>
 #include "Stream/InputStream.h"
 #include "Stream/OutputStream.h"
+#include "Solver/Searcher.h"
 
 class ClientHendler {
+private:
+    Searcher<string,string> algorithm;
 public:
     virtual void HandleClient(InputStream inputStream, OutputStream outputStream)=0;
 

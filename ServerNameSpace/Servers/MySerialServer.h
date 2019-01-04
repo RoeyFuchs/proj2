@@ -83,7 +83,7 @@ class MySerialServer : public Server {
           OutputStream outStream(newsockfd);
           InputStream inputStream(newsockfd);
           outStream << "1";
-          this->clientHendler->HandleClient(inputStream, outStream);
+        //  this->clientHendler->HandleClient(inputStream, outStream);
       }
   }
   virtual void Stop() {
