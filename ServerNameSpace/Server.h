@@ -5,7 +5,7 @@
 #ifndef PROJ2_SERVER_H
 #define PROJ2_SERVER_H
 
-#include "ClientHendler.h"
+#include "ClientHendlers/ClientHendler.h"
 
 class Server {
   virtual void Open(int port, ClientHendler* clientHendler) = 0;

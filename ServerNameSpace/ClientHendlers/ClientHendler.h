@@ -7,14 +7,11 @@
 using namespace std;
 #include <istream>
 #include <ostream>
-#include "Stream/InputStream.h"
-#include "Stream/OutputStream.h"
-#include "Solver/Searcher.h"
+#include "../Stream/InputStream.h"
+#include "../Stream/OutputStream.h"
+#include "../Solver/Searcher.h"
 #include <memory.h>
-
 class ClientHendler {
-private:
-   shared_ptr< Searcher<string,string>> searcher;
 public:
     virtual void HandleClient(InputStream inputStream, OutputStream outputStream)=0;
 
