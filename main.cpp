@@ -5,6 +5,7 @@ int main() {
   ms->Open(5400);
   std::cout<< "check"<<std::endl;
   ms->Start();
+  delete ms;
 
   return 0;
 }

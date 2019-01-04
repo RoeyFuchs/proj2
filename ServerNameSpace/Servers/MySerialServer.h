@@ -4,7 +4,7 @@
 #include "../Server.h"
 #include "../Stream/InputStream.h"
 #include "../Stream/OutputStream.h"
-#define TIMEOUT_SECONDE 30
+#define TIMEOUT_SECONDE 10
 #define TIMEOUT_MILISECONDE 0
 #include <stdio.h>
 #include <stdlib.h>
@@ -21,13 +21,17 @@ class MySerialServer : public Server {
   int sockfd;
   ClientHendler *clientHendler;
   bool active;
+
  public:
 
-  MySerialServer() {}
+  MySerialServer() = default;
+/**
+ * setup the server
+ * @param port - the port to use with
+ * @param clientHendler - the object that will handle the client
+ */
   virtual void Open(int port, ClientHendler *clientHendler) {
       this->clientHendler = clientHendler;
-  }
-  virtual void Open(int port) {
       int sockfd, newsockfd, clilen;
       struct sockaddr_in serv_addr, cli_addr;
       int n;
@@ -55,13 +59,17 @@ class MySerialServer : public Server {
   }
 
   void Start() {
-      //only 1 at time - serial server
-      listen(this->sockfd, 1);
+      //open a thread to server-client stream
       thread t1(&MySerialServer::MakeConnection, this);
       t1.detach();
   }
-
+/**
+ * create a connection with client
+ */
   void MakeConnection() {
+      //only 1 at time - serial server
+      listen(this->sockfd, 1);
+
       int newsockfd, clilen, n;
       struct sockaddr_in cli_addr;
       clilen = sizeof(cli_addr);
@@ -69,6 +77,7 @@ class MySerialServer : public Server {
       fd_set rfds;
       FD_ZERO(&rfds);
       FD_SET(this->sockfd, &rfds);
+      //set a timeout timer
       tv.tv_sec = TIMEOUT_SECONDE;
       tv.tv_usec = TIMEOUT_MILISECONDE;
       while (this->active && select(this->sockfd + 1, &rfds, nullptr, nullptr, &tv)) {
@@ -83,10 +92,14 @@ class MySerialServer : public Server {
           OutputStream outStream(newsockfd);
           InputStream inputStream(newsockfd);
           outStream << "1";
-        //  this->clientHendler->HandleClient(inputStream, outStream);
+          //this->clientHendler->HandleClient(inputStream, outStream);
       }
   }
+  /**
+   * stop the server
+   */
   virtual void Stop() {
+      //change the active flag, and close the socket
       this->active = false;
       close(this->sockfd);
   }
