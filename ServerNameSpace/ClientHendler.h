@@ -10,10 +10,11 @@ using namespace std;
 #include "Stream/InputStream.h"
 #include "Stream/OutputStream.h"
 #include "Solver/Searcher.h"
+#include <memory.h>
 
 class ClientHendler {
 private:
-    Searcher<string,string> algorithm;
+   shared_ptr< Searcher<string,string>> searcher;
 public:
     virtual void HandleClient(InputStream inputStream, OutputStream outputStream)=0;
 
