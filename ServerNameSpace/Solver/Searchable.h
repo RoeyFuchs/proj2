@@ -10,10 +10,10 @@
 #include "State.h"
 using namespace std;
 template <class T>
-class Searchable<T>{
+class Searchable{
 public:
     virtual State<T> GetInitialState()=0;
-    virtual State<T> GetGoalState()=0;
-    virtual vector<State<T>>GetAllPossiableStates(State<T> s);
+    virtual bool IsGoalState(State<T> state)=0;
+    virtual vector<State<T>>GetAllPossiableStates(State<T> s)=0;
 };
 #endif //PROJ2_SEARCHABLE_H

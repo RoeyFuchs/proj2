@@ -4,5 +4,8 @@
 
 #ifndef PROJ2_CACHEMANAGER_H
 #define PROJ2_CACHEMANAGER_H
+template <class T>
+/*class CacheManage<T>r{
 
+};*/
 #endif //PROJ2_CACHEMANAGER_H

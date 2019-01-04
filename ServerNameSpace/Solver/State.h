@@ -11,7 +11,8 @@ class State{
 private:
     T state;
     double cost;
-    State<T> cameFrom;
+    //TODO: CAME FROM
+//    State<T> cameFrom;
 public:
     State(T state){
         this->state= state;
