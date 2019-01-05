@@ -17,10 +17,11 @@ template <class P,class S>
 class FileCacheManager: public CacheManager<P,S> {
 private:
     std::unordered_map<shared_ptr<Searchable<P>>,shared_ptr<Solution<S>>> cachedMap;
+    shared_ptr<FileTextHendler<P, S>> fileTextHendler;
 public:
     FileCacheManager(){
-        FileTextHendler<P, S> fileTextHendler(PATH);
-        fileTextHendler.ReadResolvedProblems(this->cachedMap);
+        fileTextHendler= make_shared<FileTextHendler<P, S>>(PATH);
+        fileTextHendler->ReadResolvedProblems(this->cachedMap);
     }
     /**
      * IsSolutionExist
@@ -41,6 +42,7 @@ public:
      */
     void AddSolution(shared_ptr<Searchable<P>> pr, shared_ptr<Solution<S>> so){
         this->cachedMap[pr]=so;
+        this->fileTextHendler->WriteResolvedProblem(pr,so);
     }
     /**
      * GetSolution
