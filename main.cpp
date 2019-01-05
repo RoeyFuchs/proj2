@@ -17,7 +17,7 @@ int main() {
   cout<< stringSol->ToString()<<endl;
   StringReverserSolution* st= new StringReverserSolution(vec);
   shared_ptr<CacheManager<string,string>> cacheManager= make_shared<FileCacheManager<string,string>>();
-  cacheManager->AddSolution(stringProblem,stringSol);
+ // cacheManager->AddSolution(stringProblem,stringSol);
          /* make_shared<FileCacheManager<StringReverserSearchable,StringReverserSolution>>();*/
 
   return 0;

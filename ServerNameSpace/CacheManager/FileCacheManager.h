@@ -28,7 +28,7 @@ public:
      * @param problem
      * @return true if solution to specific problem is exist or false otherwise
      */
-    bool IsSolutionExist(shared_ptr<Searchable<P>> problem){
+    virtual bool IsSolutionExist(shared_ptr<Searchable<P>> problem){
         if(cachedMap.find(problem) != cachedMap.end()){
             return true;
         }
@@ -49,7 +49,7 @@ public:
      * @param pr
      * @return solution by its problem key
      */
-    shared_ptr<Solution<S>> GetSolution(shared_ptr<Searchable<P>> pr){
+     shared_ptr<Solution<S>> GetSolution(shared_ptr<Searchable<P>> pr){
         return this->cachedMap[pr];
     }
 };

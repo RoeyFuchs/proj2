@@ -25,5 +25,8 @@ public:
     bool operator ==(State st){
         return (this->state==st.GetState());
     }
+    double GetCost() {
+        return this->cost;
+    }
 };
 #endif //PROJ2_STATE_H

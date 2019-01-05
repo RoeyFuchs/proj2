@@ -19,7 +19,7 @@ public:
     }
     //TODO: understand how to implement is goal for string
     bool IsGoalState(State<string> state){
-
+    return true;
     }
     vector<State<string>>GetAllPossiableStates(State<string> s){}
 
