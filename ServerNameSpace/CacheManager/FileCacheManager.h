@@ -7,25 +7,27 @@
 
 #include "CacheManager.h"
 #include <unordered_map>
+#include <memory.h>
 #include "../Utils/FileTextHendler.h"
+#include "../Solver/Searchable.h"
+#include "../Solver/Solution.h"
 
 #define PATH "cache.txt"
-template <class Problem, class Solution>
-class FileCacheManager: public CacheManager<Problem,Solution> {
+template <class P,class S>
+class FileCacheManager: public CacheManager<P,S> {
 private:
-    std::unordered_map<Problem, Solution> cachedMap;
+    std::unordered_map<shared_ptr<Searchable<P>>,shared_ptr<Solution<S>>> cachedMap;
 public:
     FileCacheManager(){
-        //TODO: add convertor between problem\sol to string
-        FileTextHendler fileTextHendler(PATH);
-        fileTextHendler.ReadResolvedProblems();
+        FileTextHendler<P, S> fileTextHendler(PATH);
+        fileTextHendler.ReadResolvedProblems(this->cachedMap);
     }
     /**
      * IsSolutionExist
      * @param problem
      * @return true if solution to specific problem is exist or false otherwise
      */
-    bool IsSolutionExist(Problem problem){
+    bool IsSolutionExist(shared_ptr<Searchable<P>> problem){
         if(cachedMap.find(problem) != cachedMap.end()){
             return true;
         }
@@ -37,7 +39,7 @@ public:
      * @param so
      * add new solution to chach map
      */
-    void AddSolution(Problem pr, Solution so){
+    void AddSolution(shared_ptr<Searchable<P>> pr, shared_ptr<Solution<S>> so){
         this->cachedMap[pr]=so;
     }
     /**
@@ -45,7 +47,7 @@ public:
      * @param pr
      * @return solution by its problem key
      */
-    Solution GetSolution(Problem pr){
+    shared_ptr<Solution<S>> GetSolution(shared_ptr<Searchable<P>> pr){
         return this->cachedMap[pr];
     }
 };

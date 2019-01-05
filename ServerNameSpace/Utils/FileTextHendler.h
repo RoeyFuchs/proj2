@@ -12,10 +12,11 @@
 #include <fstream>
 #include <memory>
 #include "../Solver/Searchable.h"
+#include "../Solver/Solution.h"
 #define SEPERATOR "RESOLVED PROBLEM"
 #define SOLUTION "SOLUTION"
 using namespace std;
-template <class Problem, class Solution>
+template <class P, class S>
 class FileTextHendler {
 private:
     string path;
@@ -29,13 +30,13 @@ public:
  * @param sol
  * write problem and solution to text file
  */
-    void WriteResolvedProblem(Problem prob, Solution sol){
+    void WriteResolvedProblem(shared_ptr<Searchable<P>> prob,shared_ptr<Solution<S>> sol){
         std::ofstream outFile;
         outFile.open(path,std::ios_base::app);
         outFile<<SEPERATOR;
-        outFile<<prob;
+        outFile<<prob->ToString();
         outFile<<SOLUTION;
-        outFile<<sol<<endl;
+        outFile<<sol->ToString()<<endl;
         outFile.close();
 
     }
@@ -43,7 +44,7 @@ public:
  * ReadResolvedProblem
  * @return tuple of string and solution
  */
-    void ReadResolvedProblems( std::unordered_map<shared_ptr<Searchable<Problem>>,shared_ptr<Solution<Solution>>>& cachedMap){
+    void ReadResolvedProblems( std::unordered_map<shared_ptr<Searchable<P>>,shared_ptr<Solution<S>>> & cachedMap){
         std::ifstream inFile;
         string line;
         vector<tuple<vector<string>,vector< string>>> resolvedProblems;
@@ -65,16 +66,14 @@ public:
                     currentSol.push_back(line);
                 }
 
-                shared_ptr<Searchable<Problem>> newPro= make_shared<Searchable<Problem>>(currentPro);
-                shared_ptr<Solution<Solution>> newSol= make_sharedr<Solution<Solution>>(currentSol);
+                shared_ptr<Searchable<P>> newPro= make_shared<Searchable<P>>(currentPro);
+                shared_ptr<Solution<S>> newSol= make_shared<Solution<S>>(currentSol);
 
                 cachedMap[newPro]= newSol;
                 currentPro.clear();
                 currentSol.clear();
             }
         }
-        return resolvedProblems;
-
     }
 };
 
