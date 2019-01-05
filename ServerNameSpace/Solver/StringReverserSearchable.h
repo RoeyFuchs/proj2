@@ -9,11 +9,8 @@ class StringReverserSearchable: public Searchable <string>{
 private:
     string problem;
 public:
-    StringReverserSearchable(string problem){
-        this->problem= problem;
-    }
-    StringReverserSearchable(vector<string> pro){
-        for (int i = 0; i <problem.size() ; ++i) {
+    StringReverserSearchable(vector<string>& pro): Searchable(pro){
+        for (int i = 0; i <pro.size() ; ++i) {
             this->problem+= pro[i];
         }
     }
@@ -25,5 +22,9 @@ public:
 
     }
     vector<State<string>>GetAllPossiableStates(State<string> s){}
+
+    string ToString(){
+        return problem;
+    }
 
 };

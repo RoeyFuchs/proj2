@@ -7,9 +7,9 @@
 
 #include <memory>
 #include "Searchable.h"
-template <class Solution, class Problem>
+template <class Problem, class Solution>
 class Searcher{
 public:
-    virtual Solution Search(shared_ptr<Searchable<Problem>>  problem)=0;
+    virtual Solution Search(Problem problem)=0;
 };
 #endif //PROJ2_SEARCHER_H

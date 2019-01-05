@@ -43,7 +43,7 @@ public:
  * ReadResolvedProblem
  * @return tuple of string and solution
  */
-    void ReadResolvedProblems( std::unordered_map<Searchable<Problem>, Solution> & cachedMap){
+    void ReadResolvedProblems( std::unordered_map<shared_ptr<Searchable<Problem>>,shared_ptr<Solution<Solution>>>& cachedMap){
         std::ifstream inFile;
         string line;
         vector<tuple<vector<string>,vector< string>>> resolvedProblems;
@@ -64,8 +64,11 @@ public:
                 while (line!= SEPERATOR){
                     currentSol.push_back(line);
                 }
+
                 shared_ptr<Searchable<Problem>> newPro= make_shared<Searchable<Problem>>(currentPro);
-                //Todo: create solution object and add vector<string> constructor
+                shared_ptr<Solution<Solution>> newSol= make_sharedr<Solution<Solution>>(currentSol);
+
+                cachedMap[newPro]= newSol;
                 currentPro.clear();
                 currentSol.clear();
             }
