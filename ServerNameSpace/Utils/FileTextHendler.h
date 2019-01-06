@@ -68,6 +68,7 @@ public:
                 //todo read its instance and create it
 
                 shared_ptr<Searchable<P>> newPro= make_shared<Searchable<P>>(currentPro);
+
                 shared_ptr<Solution<S>> newSol= make_shared<Solution<S>>(currentSol);
 
                 cachedMap[newPro]= newSol;

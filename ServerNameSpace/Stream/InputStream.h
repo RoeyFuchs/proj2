@@ -3,7 +3,6 @@
 #define PROJ2_INPUTSTREAM_H
 #define MAX_CHARS 1024
 #include <iostream>
-
 #include <unistd.h>
 
 class InputStream : public std::istream {

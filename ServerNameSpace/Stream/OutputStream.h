@@ -2,8 +2,8 @@
 #ifndef PROJ2_OUTPUTSTREAM_H
 #define PROJ2_OUTPUTSTREAM_H
 #include <iostream>
-
 #include <unistd.h>
+
 class OutputStream : public std::ostream {
   int newsockfd;
  public:
