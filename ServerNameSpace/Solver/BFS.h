@@ -33,7 +33,7 @@ class BFS : public Searcher<vector<vector<int>>, string> {
                 s.SetComeFrom(n);
                 open.push(s);
             } else {
-                
+
             }
         }
     }

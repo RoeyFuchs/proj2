@@ -18,7 +18,7 @@ public:
     State(T state){
         this->state= state;
     }
-    string GetState(){
+    T GetState(){
         return this->state;
     }
 

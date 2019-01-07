@@ -11,4 +11,4 @@ add_executable(proj2 main.cpp ServerNameSpace/Server.h ServerNameSpace/ClientHen
         ServerNameSpace/Solver/StringReverserSearcher.h ServerNameSpace/Solver/State.h ServerNameSpace/CacheManager/FileCacheManager.h
         ServerNameSpace/Utils/FileTextHendler.cpp ServerNameSpace/Utils/FileTextHendler.h ServerNameSpace/Solver/Solution.h
         ServerNameSpace/Solver/StringReverserSolution.h ServerNameSpace/Solver/BFS.h ServerNameSpace/Utils/Comperators.h
-        ServerNameSpace/Utils/Utils.h)
+        ServerNameSpace/Utils/Utils.h ServerNameSpace/Solver/MatrixSearchable.h ServerNameSpace/Utils/Point.h)
