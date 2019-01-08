@@ -12,34 +12,32 @@
 #include "MatrixSearchable.h"
 
 class BFS : public Searcher<vector<vector<int>>, string> {
-  State<vector<vector<int>>> initialState;
-  State<vector<vector<int>>> endState;
-
+  shared_ptr<State<Point>> initialState;
+  shared_ptr<State<Point>> endState;
+  MatrixSearchable *matrix;
 
   string Search(MatrixSearchable problem) {
-    std::priority_queue<State<vector<vector<int>>>, vector<State<vector<vector<int>>>>, CompareStep> open;
-    open.push(this->initialState);
-    std::list<State<vector<vector<int>>>> closed;
-    while (!open.empty()) {
-        State<vector<vector<int>>> n = open.top();
-        open.pop();
-        closed.push_back(n);
-        if(n == this->endState) {
-            //done
-        }
-        list<State<vector<vector<int>>>> successor = n.GetAllPossiableStates();
-        for(State<vector<vector<int>>>& s: successor) {
-            bool foundInClosed = (std::find(closed.begin(), closed.end(), s) != closed.end());
-            if (!CheckIfValueInSidePriorityQueue<State<vector<vector<int>>>>(s, open) && foundInClosed) {
-                s.SetComeFrom(n);
-                open.push(s);
-            } else {
+      std::priority_queue<shared_ptr<State<Point>>, vector<shared_ptr<State<Point>>>, CompareStep> open;
+      open.push(this->initialState);
+      std::list<shared_ptr<State<Point>>> closed;
+      while (!open.empty()) {
+          shared_ptr<State<Point>> n = open.top();
+          open.pop();
+          closed.push_back(n);
+          if (n == this->endState) {
+              //n->GetPath();
+          }
+          vector<shared_ptr<State<Point>>> successor = matrix->GetAllPossiableStates(n);
+          for (auto s: successor) {
+              bool foundInClosed = (std::find(closed.begin(), closed.end(), s) != closed.end());
+              if (!CheckIfValueInSidePriorityQueue<shared_ptr<State<Point>>>(s, open) && foundInClosed) {
+                  s->SetComeFrom(n);
+                  open.push(s);
+              }
+              closed.push_back(n);
+          }
 
-            }
-        }
-    }
+      }
 
-  }
-
-};
+  };
 #endif //PROJ2_BFS_H

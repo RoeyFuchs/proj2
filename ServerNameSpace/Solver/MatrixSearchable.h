@@ -55,10 +55,10 @@ class MatrixSearchable : public Searchable<shared_ptr<Point>> {
   virtual bool IsGoalState(shared_ptr<State<Point>> state) {
       return state->GetState() == *(this->endPoint.get());
   }
-  virtual vector<shared_ptr<State<Point>>> GetAllPossiableStates(State<Point> s) {
+  virtual vector<shared_ptr<State<Point>>> GetAllPossiableStates(shared_ptr<State<Point>> s) {
       vector<shared_ptr<State<Point>>> states;
-      for (int y = s.GetState().getY()-1; y < s.GetState().getY() + 2; y++) {
-          for(int x = s.GetState().getX()-1 ; x < s.GetState().getX() +2 ; x++) {
+      for (int y = s->GetState().getY()-1; y < s->GetState().getY() + 2; y++) {
+          for(int x = s->GetState().getX()-1 ; x < s->GetState().getX() +2 ; x++) {
               if(x > 0 && x < this->sizeCulm && y > 0 && y < this->sizeRows) {
                   shared_ptr<State<Point>> p = make_shared<State<Point>>(x, y);
                   states.push_back(p);
