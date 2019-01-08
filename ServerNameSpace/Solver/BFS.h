@@ -9,13 +9,14 @@
 #include "Solution.h"
 #include "../Utils/Comperators.h"
 #include "../Utils/Utils.h"
+#include "MatrixSearchable.h"
 
 class BFS : public Searcher<vector<vector<int>>, string> {
   State<vector<vector<int>>> initialState;
   State<vector<vector<int>>> endState;
 
 
-  string Search(vector<vector<int>> problem) {
+  string Search(MatrixSearchable problem) {
     std::priority_queue<State<vector<vector<int>>>, vector<State<vector<vector<int>>>>, CompareStep> open;
     open.push(this->initialState);
     std::list<State<vector<vector<int>>>> closed;
@@ -26,7 +27,7 @@ class BFS : public Searcher<vector<vector<int>>, string> {
         if(n == this->endState) {
             //done
         }
-        list<State<vector<vector<int>>>> successor = GetAllPossiableStates();
+        list<State<vector<vector<int>>>> successor = n.GetAllPossiableStates();
         for(State<vector<vector<int>>>& s: successor) {
             bool foundInClosed = (std::find(closed.begin(), closed.end(), s) != closed.end());
             if (!CheckIfValueInSidePriorityQueue<State<vector<vector<int>>>>(s, open) && foundInClosed) {

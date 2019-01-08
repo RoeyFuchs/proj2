@@ -21,7 +21,7 @@ public:
     bool IsGoalState(State<string> state){
     return true;
     }
-    vector<State<string>>GetAllPossiableStates(State<string> s){}
+//    vector<State<string>>GetAllPossiableStates(State<string> s){}
 
     string ToString(){
         return problem;
