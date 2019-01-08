@@ -65,6 +65,7 @@ public:
                 while (line!= SEPERATOR){
                     currentSol.push_back(line);
                 }
+                //todo read its instance and create it
 
                 shared_ptr<Searchable<P>> newPro= make_shared<Searchable<P>>(currentPro);
 
