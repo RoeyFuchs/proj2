@@ -7,8 +7,10 @@
 #include "SearchableFactory.h"
 #include "../Solver/MatrixSearchable.h"
 class MatrixSearchableFactory:public SearchableFactory<shared_ptr<Point>>{
+ public:
+  //TODO UNCOMMENT CREATEOR
   virtual shared_ptr<Searchable<shared_ptr<Point>>> Create(vector<std::string> vec){
-      return make_shared<MatrixSearchableFactory>(vec);
+    //  return make_shared<MatrixSearchable>(vec);
   }
 
 };
