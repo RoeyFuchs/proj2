@@ -11,18 +11,28 @@
 #include <memory.h>
 #include <fstream>
 #include <memory>
-#include "../Solver/Searchable.h"
 #include "../Solver/Solution.h"
-#define SEPERATOR "RESOLVED PROBLEM"
-#define SOLUTION "SOLUTION"
+#include "../Factory/MatrixSearchableFactory.h"
+#include "../Factory/StringSearchableFactory.h"
+#include "../Factory/StringSolutionFactory.h"
+#define SEPERATOR "$SEARCHABLE"
+#define SOLUTION "$SOLUTION"
 using namespace std;
 template <class P, class S>
 class FileTextHendler {
 private:
     string path;
+    unordered_map<string,shared_ptr<SearchableFactory<P>>> searchableFactory;
+    unordered_map<string,shared_ptr<SolutionFactory<P>>> solutionFactory;
 public:
     FileTextHendler(string path){
         this->path= path;
+        //initlize  factories maps
+
+        this->searchableFactory[typeid(StringReverserSearchable).name()]=make_shared<StringSearchableFactory>();
+        //Todo: add matrix searchble to our map
+      //  this->searchableFactory[typeid(MatrixSearchable).name()]=make_shared<MatrixSearchableFactory>();
+       this->solutionFactory[typeid(StringReverserSolution).name()]= make_shared<StringSolutionFactory>();
     }
     /**
  * WriteResolvedProblem
@@ -33,9 +43,11 @@ public:
     void WriteResolvedProblem(shared_ptr<Searchable<P>> prob,shared_ptr<Solution<S>> sol){
         std::ofstream outFile;
         outFile.open(path,std::ios_base::app);
-        outFile<<SEPERATOR;
-        outFile<<prob->ToString();
-        outFile<<SOLUTION;
+        outFile<<SEPERATOR<<endl;
+        outFile<< typeid((*prob)).name()<<endl;
+        outFile<<prob->ToString()<<endl;
+        outFile<<SOLUTION<<endl;
+        outFile<< typeid((*sol)).name()<<endl;
         outFile<<sol->ToString()<<endl;
         outFile.close();
 
@@ -44,10 +56,11 @@ public:
  * ReadResolvedProblem
  * @return tuple of string and solution
  */
-    void ReadResolvedProblems( std::unordered_map<shared_ptr<Searchable<P>>,shared_ptr<Solution<S>>> & cachedMap){
+  std::unordered_map<shared_ptr<Searchable<P>>,shared_ptr<Solution<S>>>
+      ReadResolvedProblems( ){
         std::ifstream inFile;
+      std::unordered_map<shared_ptr<Searchable<P>>,shared_ptr<Solution<S>>>cachedMap;
         string line;
-        vector<tuple<vector<string>,vector< string>>> resolvedProblems;
         vector<string> currentPro;
         vector<string> currentSol;
         inFile.open(this->path);
@@ -55,27 +68,31 @@ public:
             //read each ResolvedProblem
             if(line==SEPERATOR){
                 std::getline(inFile,line);
+                string searchableType= line;
+                std::getline(inFile,line);
                 //Read untill solution
-                while (line!= SOLUTION){
+                while (line.size()>0 &&line!= SOLUTION){
                     currentPro.push_back(line);
+                    std::getline(inFile,line);
                 }
                 //move on above soultion seperator
                 std::getline(inFile,line);
+                string solutionType= line;
+                std::getline(inFile,line);
                 //Read untill next problem
-                while (line!= SEPERATOR){
+                while (line.size()>0 && line!= SEPERATOR){
                     currentSol.push_back(line);
+                    std::getline(inFile,line);
                 }
-                //todo read its instance and create it
-
-                shared_ptr<Searchable<P>> newPro= make_shared<Searchable<P>>(currentPro);
-
-                shared_ptr<Solution<S>> newSol= make_shared<Solution<S>>(currentSol);
+                shared_ptr<Searchable<P>> newPro= this->searchableFactory[searchableType]->Create(currentPro);
+                shared_ptr<Solution<S>> newSol= this->solutionFactory[solutionType]->Create(currentSol);
 
                 cachedMap[newPro]= newSol;
                 currentPro.clear();
                 currentSol.clear();
             }
         }
+      return cachedMap;
     }
 };
 
