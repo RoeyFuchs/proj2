@@ -9,6 +9,8 @@
 #include <memory.h>
 #include <vector>
 #include "ServerNameSpace/Utils/Utils.h"
+#include "ServerNameSpace/Solver/MatrixSearchable.h"
+#include "ServerNameSpace/Solver/BFS.h"
 int main() {
     /*vector<string> vec= {"abcsdef"};
     shared_ptr<Searchable<string>> stringProblem =make_shared<StringReverserSearchable>(vec);
@@ -20,6 +22,20 @@ int main() {
     shared_ptr<CacheManager<string,string>> cacheManager= make_shared<FileCacheManager<string,string>>();
    // cacheManager->AddSolution(stringProblem,stringSol);
            //* make_shared<FileCacheManager<StringReverserSearchable,StringReverserSolution>>();*/
+
+    vector<string> a;
+    a.push_back("5");
+    a.push_back("0,0");
+    a.push_back("5,5");
+    a.push_back("1, 2, 2, 2, 2");
+     a.push_back("2, 4,5, 6, 7");
+    a.push_back("1, 2, 2, 2, 2");
+    a.push_back("2, 4,5, 6, 7");
+    a.push_back("1, 2, 2, 2, 2");
+    MatrixSearchable* mat = new MatrixSearchable(a);
+
+    BFS bfs(mat);
+
 
 
     return 0;

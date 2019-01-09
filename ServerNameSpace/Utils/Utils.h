@@ -11,6 +11,7 @@
 #include <string>
 #include <regex>
 #include <iostream>
+
 template<typename T>
 static bool CheckIfValueInSidePriorityQueue(T val, std::priority_queue<T> que) {
     while (!que.empty()) {

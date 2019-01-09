@@ -17,7 +17,7 @@ public:
     virtual string ToString()=0;
 
     virtual State<T> GetInitialState()=0;
-    virtual bool IsGoalState(State<T> state)=0;
-    virtual vector<shared_ptr<State<T>>>GetAllPossiableStates(State<T> s)=0;
+    virtual bool IsGoalState(shared_ptr<State<T>> state)=0;
+    virtual vector<shared_ptr<State<T>>>GetAllPossiableStates(shared_ptr<State<T>> s)=0;
 };
 #endif //PROJ2_SEARCHABLE_H
