@@ -11,11 +11,16 @@
 #include <string>
 #include <regex>
 #include <iostream>
+#include "../Utils/Point.h"
+#include "../Utils/Comperators.h"
+#include "../Solver/State.h"
 
-template<typename T>
-static bool CheckIfValueInSidePriorityQueue(T val, std::priority_queue<T> que) {
+static bool CheckIfValueInSidePriorityQueue(shared_ptr<State<shared_ptr<Point>>> val,
+                                            std::priority_queue<shared_ptr<State<shared_ptr<Point>>>,
+                                                                vector<shared_ptr<State<shared_ptr<Point>>>>,
+                                                                CompareStep<Point>> que) {
     while (!que.empty()) {
-        if (que.top() == val) {
+        if (que.top()== val) {
             return true;
         }
         que.pop();
@@ -25,10 +30,9 @@ static bool CheckIfValueInSidePriorityQueue(T val, std::priority_queue<T> que) {
 
 static std::vector<std::vector<int>> ConvertStringToMatrix(std::vector<std::string> vec) {
 
-
     std::vector<std::vector<int>> matrix;
 
-    for(int i = 0; i < vec.size(); ++i) {
+    for (int i = 0; i < vec.size(); ++i) {
         std::string s = vec.at(i);
         std::string delimiter = ",";
         std::vector<int> row;
@@ -46,7 +50,7 @@ static std::vector<std::vector<int>> ConvertStringToMatrix(std::vector<std::stri
     return matrix;
 }
 
-template <class T>
+template<class T>
 std::vector<T> Slice(std::vector<T> myVec, int beginIndex, int endIndex) {
     std::vector<T> newVec;
     for (int i = beginIndex; i <= endIndex; ++i) {

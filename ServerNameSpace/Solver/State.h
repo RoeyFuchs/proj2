@@ -31,6 +31,9 @@ public:
     void SetComeFrom(shared_ptr<State<T>> comeFrom) {
         this->cameFrom = comeFrom;
     }
+  shared_ptr<State<T>> GetCameFrom() {
+        return this->cameFrom;
+    }
     double GetPathCost() {
         if(cameFrom != nullptr) {
             return cameFrom->GetPathCost()+this->GetCost();

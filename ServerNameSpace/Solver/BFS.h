@@ -5,16 +5,19 @@
 #include <queue>
 #include <list>
 #include <algorithm>
+#include "../Utils/Point.h"
 #include "Searcher.h"
 #include "Solution.h"
 #include "../Utils/Comperators.h"
 #include "../Utils/Utils.h"
 #include "MatrixSearchable.h"
+#include <memory>
 
 class BFS : public Searcher<MatrixSearchable, string> {
   shared_ptr<State<shared_ptr<Point>>> initialState;
   shared_ptr<State<shared_ptr<Point>>> endState;
   MatrixSearchable *matrix;
+  shared_ptr<State<shared_ptr<Point>>> solution;
 
  public:
   BFS(MatrixSearchable* searchble) {
@@ -30,14 +33,13 @@ class BFS : public Searcher<MatrixSearchable, string> {
           open.pop();
           closed.push_back(n);
           if (n == this->endState) {
-              cout << "DONE" << endl;
-
-              //n->GetPath();
+              this->solution = n;
+              return this->GetSoulutionString();
           }
           vector<shared_ptr<State<shared_ptr<Point>>>> successor = matrix->GetAllPossiableStates(n);
           for (shared_ptr<State<shared_ptr<Point>>> s: successor) {
               bool foundInClosed = (std::find(closed.begin(), closed.end(), s) != closed.end());
-              if (CheckIfValueInSidePriorityQueue<shared_ptr<State<shared_ptr<Point>>>>(s, open) && foundInClosed) {
+              if (!CheckIfValueInSidePriorityQueue(s, open) && foundInClosed) {
                   s->SetComeFrom(n);
                   open.push(s);
               }
@@ -45,6 +47,29 @@ class BFS : public Searcher<MatrixSearchable, string> {
           }
 
       }
+
   }
-  };
+
+  string GetSoulutionString() {
+      shared_ptr<State<shared_ptr<Point>>> cuurntPoint = this->solution;
+      string path = "{";
+      while(cuurntPoint->GetCameFrom() != nullptr) {
+          if(cuurntPoint->GetState()->getY() != cuurntPoint->GetCameFrom()->GetState()->getY()) {
+              if(cuurntPoint->GetState()->getY() > cuurntPoint->GetCameFrom()->GetState()->getY()) {
+                  path += "Down";
+              } else {
+                  path += "Up";
+              }
+          } else {
+              if(cuurntPoint->GetState()->getX() > cuurntPoint->GetCameFrom()->GetState()->getX()) {
+                  path += "Right";
+              } else {
+                  path += "Left";
+              }
+          }
+      }
+      path += "}";
+      return path;
+  }
+};
 #endif //PROJ2_BFS_H
