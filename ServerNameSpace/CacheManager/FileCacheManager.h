@@ -9,6 +9,7 @@
 #include <unordered_map>
 #include <memory.h>
 #include "../Utils/FileTextHendler.h"
+#include "../Utils/SharedPtrHash.h"
 #include "../Solver/Searchable.h"
 #include "../Solver/Solution.h"
 
@@ -17,12 +18,19 @@ using namespace std;
 template<class P, class S>
 class FileCacheManager : public CacheManager<P, S> {
  private:
-  std::unordered_map<shared_ptr<Searchable<P>>, shared_ptr<Solution<S>>> cachedMap;
+  std::unordered_map<shared_ptr<Searchable<P>>, shared_ptr<Solution<S>>,SharedPtrSearchableHash<P>,
+  SharePtrSearchableEqualValues<P>> cachedMap2;
+  //ToDo: i cant create unorderd map of searchable
+  //std::unordered_map<Searchable<P>, Solution<S>> cachedMap3;
   shared_ptr<FileTextHendler<P, S>> fileTextHendler;
  public:
   FileCacheManager() {
       fileTextHendler = make_shared<FileTextHendler<P, S>>(PATH);
-      fileTextHendler->ReadResolvedProblems(this->cachedMap);
+      std::unordered_map<shared_ptr<Searchable<P>>, shared_ptr<Solution<S>>> cachedMap=
+          fileTextHendler->ReadResolvedProblems();
+      for(auto it = cachedMap.cbegin(); it != cachedMap.end(); ++it){
+         this->cachedMap2[(*it).first] =(*it).second;
+      }
   }
   /**
    * IsSolutionExist
@@ -30,8 +38,8 @@ class FileCacheManager : public CacheManager<P, S> {
    * @return true if solution to specific problem is exist or false otherwise
    */
   virtual bool IsSolutionExist(shared_ptr<Searchable<P>> problem) {
-      for(auto it = this->cachedMap.cbegin(); it != this->cachedMap.end(); ++it){
-          if((*it).first->ToString()== problem->ToString()){
+      for(auto it = this->cachedMap2.cbegin(); it != this->cachedMap2.end(); ++it){
+          if((*it).first== problem){
               return true;
           }
       }
@@ -46,7 +54,7 @@ class FileCacheManager : public CacheManager<P, S> {
    */
   void AddSolution(shared_ptr<Searchable<P>> pr, shared_ptr<Solution<S>> so) {
       if (!this->IsSolutionExist(pr)) {
-          this->cachedMap[pr] = so;
+          this->cachedMap2[pr] = so;
           this->fileTextHendler->WriteResolvedProblem(pr, so);
       }
   }
@@ -56,13 +64,14 @@ class FileCacheManager : public CacheManager<P, S> {
    * @return solution by its problem key at o(1) compexity
    */
   shared_ptr<Solution<S>> GetSolution(shared_ptr<Searchable<P>> pr) {
-    /*  try {
-          shared_ptr<Solution<S>> so = this->cachedMap.at(pr);
+      /*try {
+          shared_ptr<Solution<S>> so = this->cachedMap2[(*pr)];
           return so;
       }catch (const out_of_range &e){
           return nullptr;
       }*/
-      for(auto it = this->cachedMap.cbegin(); it != this->cachedMap.end(); ++it){
+
+      for(auto it = this->cachedMap2.cbegin(); it != this->cachedMap2.end(); ++it){
           if((*it).first->ToString()== pr->ToString()){
               return (*it).second;
           }

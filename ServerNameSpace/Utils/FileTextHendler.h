@@ -44,8 +44,10 @@ public:
  * ReadResolvedProblem
  * @return tuple of string and solution
  */
-    void ReadResolvedProblems( std::unordered_map<shared_ptr<Searchable<P>>,shared_ptr<Solution<S>>> & cachedMap){
+  std::unordered_map<shared_ptr<Searchable<P>>,shared_ptr<Solution<S>>>
+      ReadResolvedProblems( ){
         std::ifstream inFile;
+      std::unordered_map<shared_ptr<Searchable<P>>,shared_ptr<Solution<S>>>cachedMap;
         string line;
         vector<string> currentPro;
         vector<string> currentSol;
@@ -78,6 +80,7 @@ public:
                 currentSol.clear();
             }
         }
+      return cachedMap;
     }
 };
 
