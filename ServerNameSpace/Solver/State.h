@@ -6,7 +6,7 @@
 #define PROJ2_STATE_H
 using namespace std;
 
-#include <memory.h>
+#include <memory>
 #include <string>
 template <class T>
 class State{
@@ -27,6 +27,15 @@ public:
     }
     double GetCost() {
         return this->cost;
+    }
+    void SetComeFrom(shared_ptr<State<T>> comeFrom) {
+        this->cameFrom = comeFrom;
+    }
+    double GetPathCost() {
+        if(cameFrom != nullptr) {
+            return cameFrom->GetPathCost()+this->GetCost();
+        }
+        return this->GetCost();
     }
 };
 #endif //PROJ2_STATE_H
