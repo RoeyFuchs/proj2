@@ -21,7 +21,10 @@ public:
     bool IsGoalState(State<string> state){
     return true;
     }
-    vector<State<string>>GetAllPossiableStates(State<string> s){}
+    vector<shared_ptr<State<string>>>GetAllPossiableStates(State<string> s){
+        vector<shared_ptr<State<string>>> vec;
+        return vec;
+    }
 
     string ToString(){
         return problem;
