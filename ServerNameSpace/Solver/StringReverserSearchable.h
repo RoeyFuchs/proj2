@@ -14,8 +14,8 @@ public:
             this->problem+= pro[i];
         }
     }
-    State<string> GetInitialState(){
-        return this->problem;
+    shared_ptr<State<string>> GetInitialState(){
+        return make_shared<State<string>>(this->problem);
     }
     //TODO: understand how to implement is goal for string
     bool IsGoalState(shared_ptr<State<string>> state){

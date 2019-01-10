@@ -28,6 +28,90 @@ static bool CheckIfValueInSidePriorityQueue(shared_ptr<State<shared_ptr<Point>>>
     return false;
 }
 
+bool CheckIfPathBetterInPriorityQueue(shared_ptr<State<shared_ptr<Point>>> val,
+                                      std::priority_queue<shared_ptr<State<shared_ptr<Point>>>,
+                                                          vector<shared_ptr<State<shared_ptr<Point>>>>,
+                                                          CompareStep<shared_ptr<Point>>> &que) {
+    std::list<shared_ptr<State<shared_ptr<Point>>>> temp;
+    bool better = false;
+    while(!que.empty()) {
+        if(que.top()->GetState()->operator==(*val->GetState().get())) {
+            if(val->GetPathCost() < que.top()->GetPathCost()){
+                better = true;
+            } else {
+                better = false;
+            }
+        }
+        temp.push_back(que.top());
+        que.pop();
+    }
+    for(auto value : temp) {
+        que.push(value);
+    }
+    return better;
+
+}
+bool CheckIfPathBetterList(shared_ptr<State<shared_ptr<Point>>> val,
+                       std::list<shared_ptr<State<shared_ptr<Point>>>>& list) {
+
+    bool better = false;
+    for(auto value : list) {
+        if(value->GetState()->operator==(*val->GetState().get())) {
+            if(val->GetPathCost() < value->GetPathCost()) {
+                better = true;
+            }
+        }
+    }
+    return better;
+
+}
+
+static void RemoveValFromPriorityQueue(shared_ptr<State<shared_ptr<Point>>> val,
+                                            std::priority_queue<shared_ptr<State<shared_ptr<Point>>>,
+                                                                vector<shared_ptr<State<shared_ptr<Point>>>>,
+                                                                CompareStep<shared_ptr<Point>>>& que) {
+    std::list<shared_ptr<State<shared_ptr<Point>>>> temp;
+    while(!que.empty()) {
+        if(que.top() == val) {
+            que.pop();
+            break;
+        }
+        temp.push_back(que.top());
+        que.pop();
+    }
+    for(auto& value : temp) {
+        que.push(value);
+    }
+}
+
+static void RemoveValFromPriorityQueueByValue(shared_ptr<State<shared_ptr<Point>>> val,
+                                       std::priority_queue<shared_ptr<State<shared_ptr<Point>>>,
+                                                           vector<shared_ptr<State<shared_ptr<Point>>>>,
+                                                           CompareStep<shared_ptr<Point>>>& que) {
+    std::list<shared_ptr<State<shared_ptr<Point>>>> temp;
+    while(!que.empty()) {
+        if(que.top()->GetState()->operator==(*val->GetState().get())) {
+            que.pop();
+            break;
+        }
+        temp.push_back(que.top());
+        que.pop();
+    }
+    for(auto& value : temp) {
+        que.push(value);
+    }
+}
+static bool CheckIfValueInsideList(shared_ptr<State<shared_ptr<Point>>> val, std::list<shared_ptr<State<shared_ptr<Point>>>> list) {
+    for(auto itr = list.begin(); itr != list.end(); ++itr) {
+        if(itr->get()->GetState()->operator==(*val->GetState().get())) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+
 static std::vector<std::vector<int>> ConvertStringToMatrix(std::vector<std::string> vec) {
 
     std::vector<std::vector<int>> matrix;

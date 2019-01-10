@@ -8,6 +8,7 @@
 #include "Searcher.h"
 #include "Solution.h"
 #include "MatrixSearchable.h"
+#include "MatrixSolution.h"
 
 
 class BFS : public Searcher<MatrixSearchable, string> {
@@ -22,50 +23,44 @@ class BFS : public Searcher<MatrixSearchable, string> {
   }
 
   string Search(MatrixSearchable problem) {
+      this->matrix = &problem;
       std::priority_queue<shared_ptr<State<shared_ptr<Point>>>, vector<shared_ptr<State<shared_ptr<Point>>>>, CompareStep<shared_ptr<Point>>> open;
-      open.push(this->initialState);
+      open.push(problem.GetInitialState());
       std::list<shared_ptr<State<shared_ptr<Point>>>> closed;
       while (!open.empty()) {
           shared_ptr<State<shared_ptr<Point>>> n = open.top();
           open.pop();
-          closed.push_back(n);
-          if (n == this->endState) {
+          if (problem.IsGoalState(n)) {
               this->solution = n;
-              return this->GetSoulutionString();
+              break;
+
           }
           vector<shared_ptr<State<shared_ptr<Point>>>> successor = matrix->GetAllPossiableStates(n);
           for (shared_ptr<State<shared_ptr<Point>>> s: successor) {
-              bool foundInClosed = (std::find(closed.begin(), closed.end(), s) != closed.end());
-              if (!CheckIfValueInSidePriorityQueue(s, open) && foundInClosed) {
+              if (!CheckIfValueInSidePriorityQueue(s, open) && !CheckIfValueInsideList(s, closed)) {
                   s->SetComeFrom(n);
                   open.push(s);
+                  closed.push_back(s);
+              } else {
+                  s->SetComeFrom(n);
+                  if(CheckIfPathBetterInPriorityQueue(s, open) || CheckIfPathBetterList(s, closed)) {
+                      if (!CheckIfValueInSidePriorityQueue(s, open)) {
+                            open.push(s);
+                      }
+                      else {
+                          RemoveValFromPriorityQueueByValue(s, open);
+                          open.push(s);
+                      }
+                  }
               }
-              closed.push_back(n);
+
           }
 
       }
+      vector<string> a;
+      MatrixSolution sol(a,this->solution);
+      return sol.ToString();
   }
 
-  string GetSoulutionString() {
-      shared_ptr<State<shared_ptr<Point>>> cuurntPoint = this->solution;
-      string path = "{";
-      while(cuurntPoint->GetCameFrom() != nullptr) {
-          if(cuurntPoint->GetState()->getY() != cuurntPoint->GetCameFrom()->GetState()->getY()) {
-              if(cuurntPoint->GetState()->getY() > cuurntPoint->GetCameFrom()->GetState()->getY()) {
-                  path += "Down";
-              } else {
-                  path += "Up";
-              }
-          } else {
-              if(cuurntPoint->GetState()->getX() > cuurntPoint->GetCameFrom()->GetState()->getX()) {
-                  path += "Right";
-              } else {
-                  path += "Left";
-              }
-          }
-      }
-      path += "}";
-      return path;
-  }
 };
 #endif //PROJ2_BFS_H

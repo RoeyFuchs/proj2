@@ -49,8 +49,9 @@ class MatrixSearchable : public Searchable<shared_ptr<Point>> {
       return str;
   }
 
-  State<shared_ptr<Point>> GetInitialState() {
-      return this->startPoint;
+  shared_ptr<State<shared_ptr<Point>>> GetInitialState() {
+      shared_ptr<State<shared_ptr<Point>>> a = make_shared<State<shared_ptr<Point>>>(this->startPoint);
+      return a;
   }
   virtual bool IsGoalState(shared_ptr<State<shared_ptr<Point>>> state) {
       return *(state->GetState()) == *(this->endPoint.get());

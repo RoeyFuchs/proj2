@@ -17,7 +17,7 @@ public:
      * @return solution to string problem -> reverse string
      */
     shared_ptr<Solution<string>> Search(shared_ptr<Searchable<string>>  problem){
-        string str= problem->GetInitialState().GetState();
+        string str= problem->GetInitialState()->GetState();
         reverse(str.begin(), str.end());
         vector<string> vec= {str};
         shared_ptr<Solution<string>> sol= make_shared<StringReverserSolution>(vec);
