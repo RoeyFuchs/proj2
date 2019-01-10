@@ -18,10 +18,10 @@ public:
         return this->problem;
     }
     //TODO: understand how to implement is goal for string
-    bool IsGoalState(State<string> state){
+    bool IsGoalState(shared_ptr<State<string>> state){
     return true;
     }
-    vector<shared_ptr<State<string>>>GetAllPossiableStates(State<string> s){
+    vector<shared_ptr<State<string>>>GetAllPossiableStates(shared_ptr<State<string>> s){
         vector<shared_ptr<State<string>>> vec;
         return vec;
     }
