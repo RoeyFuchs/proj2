@@ -20,6 +20,7 @@ class MatrixSolution : public Solution<int> {
       }
       directions direction;
       string path = "{";
+      bool first = true;
       while(cuurntPoint->GetCameFrom() != nullptr) {
           if(cuurntPoint->GetState()->getY() != cuurntPoint->GetCameFrom()->GetState()->getY()) {
               if(cuurntPoint->GetState()->getY() > cuurntPoint->GetCameFrom()->GetState()->getY()) {
@@ -34,15 +35,18 @@ class MatrixSolution : public Solution<int> {
                   direction = Left;
               }
           }
-          path = addDirectionToString(direction, path);
+          path = addDirectionToString(direction, path, first);
           cuurntPoint = cuurntPoint->GetCameFrom();
+          first = false;
       }
       path += "}";
       return path;
   }
 
-  string addDirectionToString(directions dir, string str) {
-       str += SEPARATOR;
+  string addDirectionToString(directions dir, string str, bool first) {
+       if(!first) {
+           str += SEPARATOR;
+       }
        switch (dir) {
            case Up:
                str += "Up";
