@@ -28,11 +28,10 @@ public:
     FileTextHendler(string path){
         this->path= path;
         //initlize  factories maps
-
         this->searchableFactory[typeid(StringReverserSearchable).name()]=make_shared<StringSearchableFactory>();
-        //Todo: add matrix searchble to our map
-      //  this->searchableFactory[typeid(MatrixSearchable).name()]=make_shared<MatrixSearchableFactory>();
+        this->searchableFactory[typeid(MatrixSearchable).name()]=make_shared<MatrixSearchableFactory>();
        this->solutionFactory[typeid(StringReverserSolution).name()]= make_shared<StringSolutionFactory>();
+       //todo : add solution mtrix to our map :)
     }
     /**
  * WriteResolvedProblem
