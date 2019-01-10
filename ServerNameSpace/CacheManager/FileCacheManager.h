@@ -17,7 +17,7 @@ class FileCacheManager : public CacheManager<P, S> {
   std::unordered_map<shared_ptr<Searchable<P>>, shared_ptr<Solution<S>>, SharedPtrSearchableHash<P>,
                      SharePtrSearchableEqualValues<P>> cachedMap2;
   //ToDo: i cant create unorderd map of searchable
-  //std::unordered_map<Searchable<P>, Solution<S>> cachedMap3;
+  std::unordered_map<Searchable<P>, Solution<S>> cachedMap3;
   shared_ptr<FileTextHendler<P, S>> fileTextHendler;
  public:
   FileCacheManager() {
