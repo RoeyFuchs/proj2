@@ -5,8 +5,7 @@
 #ifndef PROJ2_SEARCHER_H
 #define PROJ2_SEARCHER_H
 
-#include <memory>
-#include "Searchable.h"
+
 template <class Problem, class Solution>
 class Searcher{
 public:

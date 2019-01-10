@@ -6,12 +6,8 @@
 #define PROJ2_FILECACHEMANAGER_H
 
 #include "CacheManager.h"
-#include <unordered_map>
-#include <memory.h>
 #include "../Utils/FileTextHendler.h"
 #include "../Utils/SharedPtrHash.h"
-#include "../Solver/Searchable.h"
-#include "../Solver/Solution.h"
 
 using namespace std;
 #define PATH "cache.txt"

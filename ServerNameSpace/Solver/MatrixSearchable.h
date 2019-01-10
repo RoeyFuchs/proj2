@@ -3,7 +3,6 @@
 #define PROJ2_MATRIXSEARCHABLE_H
 
 #include "Searchable.h"
-#include "../Utils/Point.h"
 #include "../Utils/Utils.h"
 #include <vector>
 #include <tuple>

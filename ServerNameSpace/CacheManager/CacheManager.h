@@ -7,7 +7,6 @@
 #include <unordered_map>
 #include <string>
 #include <vector>
-#include <memory.h>
 #include <fstream>
 #include <memory>
 #include "../Solver/Searchable.h"

@@ -8,9 +8,9 @@
 #include "../Solver/State.h"
 template<typename T>
 struct CompareStep {
-  bool operator()(State<T> const & s1, State<T> const & s2) {
+  bool operator()(shared_ptr<State<T>> & s1, shared_ptr<State<T>> & s2) {
       // return "true" if "p1" is ordered before "p2", for example:
-      return s1.GetPathCost() < s2.GetPathCost();
+      return s1->GetPathCost() < s2->GetPathCost();
   }
 };
 

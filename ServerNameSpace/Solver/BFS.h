@@ -5,13 +5,10 @@
 #include <queue>
 #include <list>
 #include <algorithm>
-#include "../Utils/Point.h"
 #include "Searcher.h"
 #include "Solution.h"
-#include "../Utils/Comperators.h"
-#include "../Utils/Utils.h"
 #include "MatrixSearchable.h"
-#include <memory>
+
 
 class BFS : public Searcher<MatrixSearchable, string> {
   shared_ptr<State<shared_ptr<Point>>> initialState;
@@ -25,7 +22,7 @@ class BFS : public Searcher<MatrixSearchable, string> {
   }
 
   string Search(MatrixSearchable problem) {
-      std::priority_queue<shared_ptr<State<shared_ptr<Point>>>, vector<shared_ptr<State<shared_ptr<Point>>>>, CompareStep<Point>> open;
+      std::priority_queue<shared_ptr<State<shared_ptr<Point>>>, vector<shared_ptr<State<shared_ptr<Point>>>>, CompareStep<shared_ptr<Point>>> open;
       open.push(this->initialState);
       std::list<shared_ptr<State<shared_ptr<Point>>>> closed;
       while (!open.empty()) {
@@ -47,7 +44,6 @@ class BFS : public Searcher<MatrixSearchable, string> {
           }
 
       }
-
   }
 
   string GetSoulutionString() {

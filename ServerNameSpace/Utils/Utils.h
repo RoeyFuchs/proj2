@@ -13,14 +13,14 @@
 #include <iostream>
 #include "../Utils/Point.h"
 #include "../Utils/Comperators.h"
-#include "../Solver/State.h"
+
 
 static bool CheckIfValueInSidePriorityQueue(shared_ptr<State<shared_ptr<Point>>> val,
                                             std::priority_queue<shared_ptr<State<shared_ptr<Point>>>,
                                                                 vector<shared_ptr<State<shared_ptr<Point>>>>,
-                                                                CompareStep<Point>> que) {
+                                                                CompareStep<shared_ptr<Point>>> que) {
     while (!que.empty()) {
-        if (que.top()== val) {
+        if (que.top() == val) {
             return true;
         }
         que.pop();
