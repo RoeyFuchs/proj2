@@ -30,6 +30,7 @@ class BFS : public Searcher<MatrixSearchable, string> {
       while (!open.empty()) {
           shared_ptr<State<shared_ptr<Point>>> n = open.top();
           open.pop();
+          closed.push_back(n);
           if (problem.IsGoalState(n)) {
               this->solution = n;
               break;
@@ -40,7 +41,6 @@ class BFS : public Searcher<MatrixSearchable, string> {
               if (!CheckIfValueInSidePriorityQueue(s, open) && !CheckIfValueInsideList(s, closed)) {
                   s->SetComeFrom(n);
                   open.push(s);
-                  closed.push_back(s);
               } else {
                   s->SetComeFrom(n);
                   if(CheckIfPathBetterInPriorityQueue(s, open) || CheckIfPathBetterList(s, closed)) {
