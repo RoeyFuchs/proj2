@@ -11,6 +11,7 @@
 #include <memory.h>
 #include <fstream>
 #include <memory>
+#include "Utils.h"
 #include "../Solver/Solution.h"
 #include "../Factory/MatrixSearchableFactory.h"
 #include "../Factory/StringSearchableFactory.h"
@@ -28,9 +29,12 @@ public:
     FileTextHendler(string path){
         this->path= path;
         //initlize  factories maps
-        this->searchableFactory[typeid(StringReverserSearchable).name()]=make_shared<StringSearchableFactory>();
-        this->searchableFactory[typeid(MatrixSearchable).name()]=make_shared<MatrixSearchableFactory>();
-       this->solutionFactory[typeid(StringReverserSolution).name()]= make_shared<StringSolutionFactory>();
+        //ToDo: maxe matrix work
+        //this->searchableFactory[typeid(MatrixSearchable).name()] = make_shared<MatrixSearchableFactory>();
+        this->searchableFactory[SliceInitialNumbers(typeid(StringReverserSearchable).name())]
+        =make_shared<StringSearchableFactory>();
+        this->solutionFactory[SliceInitialNumbers(typeid(StringReverserSolution).name())]=
+            make_shared<StringSolutionFactory>();
        //todo : add solution mtrix to our map :)
     }
     /**
@@ -43,10 +47,10 @@ public:
         std::ofstream outFile;
         outFile.open(path,std::ios_base::app);
         outFile<<SEPERATOR<<endl;
-        outFile<< typeid((*prob)).name()<<endl;
+        outFile<<SliceInitialNumbers( typeid((*prob)).name())<<endl;
         outFile<<prob->ToString()<<endl;
         outFile<<SOLUTION<<endl;
-        outFile<< typeid((*sol)).name()<<endl;
+        outFile<<SliceInitialNumbers( typeid((*sol)).name())<<endl;
         outFile<<sol->ToString()<<endl;
         outFile.close();
 
@@ -63,7 +67,8 @@ public:
         vector<string> currentPro;
         vector<string> currentSol;
         inFile.open(this->path);
-        while (std::getline(inFile,line)){
+      std::getline(inFile,line);
+        while (line.size()>0){
             //read each ResolvedProblem
             if(line==SEPERATOR){
                 std::getline(inFile,line);
