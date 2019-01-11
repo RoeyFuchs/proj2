@@ -30,7 +30,8 @@ public:
         this->path= path;
         //initlize  factories maps
         //ToDo: maxe matrix work
-        //this->searchableFactory[typeid(MatrixSearchable).name()] = make_shared<MatrixSearchableFactory>();
+      //  this->searchableFactory[SliceInitialNumbers(typeid(MatrixSearchable).name())] =
+     //       make_shared<MatrixSearchableFactory>();
         this->searchableFactory[SliceInitialNumbers(typeid(StringReverserSearchable).name())]
         =make_shared<StringSearchableFactory>();
         this->solutionFactory[SliceInitialNumbers(typeid(StringReverserSolution).name())]=
