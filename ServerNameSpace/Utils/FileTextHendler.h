@@ -23,19 +23,15 @@ class FileTextHendler {
 private:
     string path;
     unordered_map<string,shared_ptr<SearchableFactory<P>>> searchableFactory;
-    unordered_map<string,shared_ptr<SolutionFactory<P>>> solutionFactory;
+    unordered_map<string,shared_ptr<SolutionFactory<S>>> solutionFactory;
 public:
     FileTextHendler(string path){
         this->path= path;
         //initlize  factories maps
-        //ToDo: maxe matrix work
-      //  this->searchableFactory[SliceInitialNumbers(typeid(MatrixSearchable).name())] =
-     //       make_shared<MatrixSearchableFactory>();
         this->searchableFactory[SliceInitialNumbers(typeid(MatrixSearchable).name())]
         =make_shared<MatrixSearchableFactory>();
         this->solutionFactory[SliceInitialNumbers(typeid(MatrixSolution).name())]=
-            make_shared<MatrixSolution>();
-       //todo : add solution mtrix to our map :)
+            make_shared<MatrixSolutionFactory>();
     }
     /**
  * WriteResolvedProblem

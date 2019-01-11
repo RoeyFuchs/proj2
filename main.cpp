@@ -8,6 +8,11 @@ int main() {
     //RunTests();
 
 
+ vector<string> vec;
+ shared_ptr<FileCacheManager<shared_ptr<Point>,int>> cacheManager
+ = make_shared<FileCacheManager<shared_ptr<Point>,int>>();
+
+
    vector<string> a;
     a.push_back("5");
     a.push_back("0,0");
