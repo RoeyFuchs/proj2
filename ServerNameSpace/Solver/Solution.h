@@ -10,7 +10,7 @@ using namespace std;
 template <class T>
 class Solution{
 public:
-    Solution(vector<string> &vec){}
+    static void CreateSolution(vector<string> & vec);
     virtual string ToString()=0;
 };
 #endif //PROJ2_SOLUTION_H

@@ -5,10 +5,10 @@
 #include <memory.h>
 #include <vector>
 int main() {
-    //RunTests();
+    RunTests();
 
 
-    vector<string> a;
+   /* vector<string> a;
     a.push_back("5");
     a.push_back("0,0");
     a.push_back("4,4");
@@ -22,6 +22,6 @@ int main() {
     string sosol = bfs->Search(*matrixSearchable);
     delete bfs;
     delete matrixSearchable;
-std::cout << sosol <<endl;
+std::cout << sosol <<endl;*/
     return 0;
 }

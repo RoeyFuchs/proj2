@@ -13,7 +13,7 @@ class MatrixSolution : public Solution<int> {
 
  public:
 
-   MatrixSolution(vector<string> &vec, shared_ptr<State<shared_ptr<Point>>> point) : finalPoint(point), Solution(vec)  {
+   MatrixSolution(vector<string> &vec, shared_ptr<State<shared_ptr<Point>>> point) {
   }
   string ToString() {
       shared_ptr<State<shared_ptr<Point>>> cuurntPoint = this->finalPoint;

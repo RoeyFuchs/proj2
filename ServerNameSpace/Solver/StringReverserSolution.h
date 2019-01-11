@@ -10,7 +10,7 @@ class StringReverserSolution: public Solution<string>{
 private:
     string solution;
 public:
-    StringReverserSolution(vector<string>& sol):Solution(sol){
+    StringReverserSolution(vector<string>& sol){
         //convert string vect into one string
         for (int i = 0; i < sol.size(); ++i) {
             solution+= sol[i];
