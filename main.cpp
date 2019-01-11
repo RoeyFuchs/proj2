@@ -5,7 +5,7 @@
 #include <memory.h>
 #include <vector>
 int main() {
-    RunTests();
+    //RunTests();
 
 
    vector<string> a;
