@@ -38,7 +38,6 @@ class MatrixSearchable : public Searchable<shared_ptr<Point>> {
       vector<string> matrixInString = Slice(vec, 3, vec.size()-1);
       this->matrix = ConvertStringToMatrix(matrixInString);
 
-
   }
   virtual string ToString() {
       string str;
@@ -51,6 +50,7 @@ class MatrixSearchable : public Searchable<shared_ptr<Point>> {
 
   shared_ptr<State<shared_ptr<Point>>> GetInitialState() {
       shared_ptr<State<shared_ptr<Point>>> a = make_shared<State<shared_ptr<Point>>>(this->startPoint);
+      a->SetCost(this->matrix.at(a->GetState()->getX()).at(a->GetState()->getY()));
       return a;
   }
   virtual bool IsGoalState(shared_ptr<State<shared_ptr<Point>>> state) {
@@ -62,24 +62,28 @@ class MatrixSearchable : public Searchable<shared_ptr<Point>> {
       if (s->GetState()->getY() -1 >= 0) {
           shared_ptr<Point> p = make_shared<Point>(s->GetState()->getX(), s->GetState()->getY() -1);
           shared_ptr<State<shared_ptr<Point>>> state = make_shared<State<shared_ptr<Point>>>(p);
+          state->SetCost(this->matrix.at(s->GetState()->getY()-1).at(s->GetState()->getX()));
           states.push_back(state);
       }
       //down value
       if (s->GetState()->getY() + 1 < this->sizeRows) {
           shared_ptr<Point> p = make_shared<Point>(s->GetState()->getX(), s->GetState()->getY() +1);
           shared_ptr<State<shared_ptr<Point>>> state = make_shared<State<shared_ptr<Point>>>(p);
+          state->SetCost(this->matrix.at(s->GetState()->getY()+1).at(s->GetState()->getX()));
           states.push_back(state);
       }
       //left value
       if (s->GetState()->getX() -1 >= 0) {
           shared_ptr<Point> p = make_shared<Point>(s->GetState()->getX() -1, s->GetState()->getY());
           shared_ptr<State<shared_ptr<Point>>> state = make_shared<State<shared_ptr<Point>>>(p);
+          state->SetCost(this->matrix.at(s->GetState()->getY()).at(s->GetState()->getX() - 1));
           states.push_back(state);
       }
       //right value
       if (s->GetState()->getX() + 1 < this->sizeCulm) {
           shared_ptr<Point> p = make_shared<Point>(s->GetState()->getX() +1, s->GetState()->getY());
           shared_ptr<State<shared_ptr<Point>>> state = make_shared<State<shared_ptr<Point>>>(p);
+          state->SetCost(this->matrix.at(s->GetState()->getY()).at(s->GetState()->getX() + 1));
           states.push_back(state);
       }
       return states;

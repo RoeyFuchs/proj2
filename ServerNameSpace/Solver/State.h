@@ -43,5 +43,8 @@ public:
         }
         return this->GetCost();
     }
+    void SetCost(double cost) {
+        this->cost = cost;
+    }
 };
 #endif //PROJ2_STATE_H

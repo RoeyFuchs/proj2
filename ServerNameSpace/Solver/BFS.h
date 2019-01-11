@@ -9,6 +9,7 @@
 #include "Solution.h"
 #include "MatrixSearchable.h"
 #include "MatrixSolution.h"
+#include "../Utils/BFSUtils.h"
 
 
 class BFS : public Searcher<MatrixSearchable, string> {
@@ -34,7 +35,6 @@ class BFS : public Searcher<MatrixSearchable, string> {
           if (problem.IsGoalState(n)) {
               this->solution = n;
               break;
-
           }
           vector<shared_ptr<State<shared_ptr<Point>>>> successor = matrix->GetAllPossiableStates(n);
           for (shared_ptr<State<shared_ptr<Point>>> s: successor) {
@@ -43,7 +43,7 @@ class BFS : public Searcher<MatrixSearchable, string> {
                   open.push(s);
               } else {
                   s->SetComeFrom(n);
-                  if(CheckIfPathBetterInPriorityQueue(s, open) || CheckIfPathBetterList(s, closed)) {
+                  if(CheckIfPathBetterInPriorityQueue(s, open) || CheckIfPathBetterList(s, closed) ) {
                       if (!CheckIfValueInSidePriorityQueue(s, open)) {
                             open.push(s);
                       }
@@ -53,14 +53,11 @@ class BFS : public Searcher<MatrixSearchable, string> {
                       }
                   }
               }
-
           }
-
       }
       vector<string> a;
       MatrixSolution sol(a,this->solution);
       return sol.ToString();
   }
-
 };
 #endif //PROJ2_BFS_H
