@@ -3,6 +3,8 @@
 #include "Solution.h"
 #include "../Utils/Point.h"
 #include "State.h"
+#include <iostream>
+#include <list>
 #define SEPARATOR ", "
 enum directions {Up, Down, Left, Right};
 
@@ -18,52 +20,54 @@ class MatrixSolution : public Solution<int> {
       if (cuurntPoint == nullptr) {
           return "NO SOLUTION";
       }
-      directions direction;
-      string path = "{";
-      bool first = true;
+      std::list<directions> dir;
       while(cuurntPoint->GetCameFrom() != nullptr) {
           if(cuurntPoint->GetState()->getY() != cuurntPoint->GetCameFrom()->GetState()->getY()) {
               if(cuurntPoint->GetState()->getY() > cuurntPoint->GetCameFrom()->GetState()->getY()) {
-                  direction = Down;
+                  dir.push_back(Down);
               } else {
-                  direction = Up;
+                  dir.push_back(Up);
               }
           } else {
               if(cuurntPoint->GetState()->getX() > cuurntPoint->GetCameFrom()->GetState()->getX()) {
-                  direction = Right;
+                  dir.push_back(Right);
               } else {
-                  direction = Left;
+                  dir.push_back(Left);
               }
           }
-          path = addDirectionToString(direction, path, first);
           cuurntPoint = cuurntPoint->GetCameFrom();
-          first = false;
       }
-      path += "}";
-      return path;
+      return MakeDirectionString(dir);
   }
 
-  string addDirectionToString(directions dir, string str, bool first) {
-       if(!first) {
+  string MakeDirectionString(std::list<directions> dir) {
+       std::string str = "{";
+       for(auto itr = dir.rbegin(); itr != dir.rend(); ++itr){
+           str += addDirectionToString(*itr);
            str += SEPARATOR;
        }
+       str = str.substr(0, str.size()-string(SEPARATOR).size());
+       str += "}";
+       return str;
+   }
+
+  string addDirectionToString(directions dir) {
        switch (dir) {
            case Up:
-               str += "Up";
+               return "Up";
                break;
            case Down:
-               str += "Down";
+               return "Down";
                break;
            case Left:
-               str += "Left";
+               return "Left";
                break;
            case Right:
-               str += "Right";
+               return "Right";
                break;
            default:
                throw runtime_error(string("Error while creating string"));
        }
-       return str;
    }
 
 };
