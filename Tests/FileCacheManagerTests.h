@@ -54,28 +54,28 @@
           cout<<"test "<< i<<"failed"<<endl;
       }
 i++;
-      stringSol= cacheManager->GetSolution(stringProblem1);
+      stringSol= cacheManager->GetSolution(stringProblem2);
       if(stringSol->ToString()=="fedcba"){
           cout<<"test "<< i<<"passed"<<endl;
       }else{
           cout<<"test "<< i<<"failed"<<endl;
       }
       i++;
-      stringSol= cacheManager->GetSolution(stringProblem1);
+      stringSol= cacheManager->GetSolution(stringProblem3);
       if(stringSol->ToString()=="1100"){
           cout<<"test "<< i<<"passed"<<endl;
       }else{
           cout<<"test "<< i<<"failed"<<endl;
       }
       i++;
-      stringSol= cacheManager->GetSolution(stringProblem1);
+      stringSol= cacheManager->GetSolution(stringProblem4);
       if(stringSol->ToString()=="bbaa"){
           cout<<"test "<< i<<"passed"<<endl;
       }else{
           cout<<"test "<< i<<"failed"<<endl;
       }
       i++;
-      stringSol= cacheManager->GetSolution(stringProblem1);
+      stringSol= cacheManager->GetSolution(stringProblem5);
       if(stringSol->ToString()=="3322"){
           cout<<"test "<< i<<"passed"<<endl;
       }else{
