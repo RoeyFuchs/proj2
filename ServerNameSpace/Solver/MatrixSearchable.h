@@ -73,27 +73,31 @@ class MatrixSearchable : public Searchable<shared_ptr<Point>> {
       if (s->GetState()->getY() + 1 < this->sizeRows) {
           shared_ptr<Point> p = make_shared<Point>(s->GetState()->getX(), s->GetState()->getY() +1);
           shared_ptr<State<shared_ptr<Point>>> state = make_shared<State<shared_ptr<Point>>>(p);
-          state->SetCost();
           double cost = this->matrix.at(s->GetState()->getY()+1).at(s->GetState()->getX());
           if(IsCostValid(cost)) {
               state->SetCost(cost);
               states.push_back(state);
           }
-          states.push_back(state);
       }
       //left value
       if (s->GetState()->getX() -1 >= 0) {
           shared_ptr<Point> p = make_shared<Point>(s->GetState()->getX() -1, s->GetState()->getY());
           shared_ptr<State<shared_ptr<Point>>> state = make_shared<State<shared_ptr<Point>>>(p);
-          state->SetCost(this->matrix.at(s->GetState()->getY()).at(s->GetState()->getX() - 1));
-          states.push_back(state);
+          double cost = this->matrix.at(s->GetState()->getY()).at(s->GetState()->getX() - 1);
+          if(IsCostValid(cost)) {
+              state->SetCost(cost);
+              states.push_back(state);
+          }
       }
       //right value
       if (s->GetState()->getX() + 1 < this->sizeCulm) {
           shared_ptr<Point> p = make_shared<Point>(s->GetState()->getX() +1, s->GetState()->getY());
           shared_ptr<State<shared_ptr<Point>>> state = make_shared<State<shared_ptr<Point>>>(p);
-          state->SetCost(this->matrix.at(s->GetState()->getY()).at(s->GetState()->getX() + 1));
-          states.push_back(state);
+          double cost = this->matrix.at(s->GetState()->getY()).at(s->GetState()->getX() + 1);
+          if(IsCostValid(cost)) {
+              state->SetCost(cost);
+              states.push_back(state);
+          }
       }
       return states;
   }
