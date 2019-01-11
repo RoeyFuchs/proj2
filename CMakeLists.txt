@@ -15,4 +15,4 @@ add_executable(proj2 main.cpp ServerNameSpace/Server.h ServerNameSpace/ClientHen
         ServerNameSpace/Utils/SharedPtrHash.h ServerNameSpace/Factory/SearchableFactory.h
         ServerNameSpace/Factory/StringSearchableFactory.h ServerNameSpace/Factory/MatrixSearchableFactory.h
         ServerNameSpace/Factory/SolutionFactory.h ServerNameSpace/Factory/StringSolutionFactory.h
-        ServerNameSpace/Solver/MatrixSolution.h)
+        ServerNameSpace/Solver/MatrixSolution.h Tests/FileCacheManagerTests.h)

@@ -143,5 +143,18 @@ std::vector<T> Slice(std::vector<T> myVec, int beginIndex, int endIndex) {
     return newVec;
 
 }
+/**
+ * SliceInitialNumbers
+ * @param name
+ * @return  remove initial numbers from string if exist
+ */
+static std::string SliceInitialNumbers(std::string name){
+    int i=0;
+    //remove initial numbers from string
+    while (i<name.length() && !((name[i]>='A'&&name[i]<='Z')||(name[i]>='a'&&name[i]<='z'))){
+        name.erase(0,1);
+    }
+    return name;
+}
 
 #endif //PROJ2_UTILS_H
