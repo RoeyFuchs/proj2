@@ -9,7 +9,7 @@
 #include "../ServerNameSpace/Solver/StringReverserSearcher.h"
 #include <memory.h>
 #include <vector>
-
+/*
   void RunTests(){
       //please clean cache file first
 
@@ -83,5 +83,5 @@ i++;
       }
 
   }
-
+*/
 #endif //PROJ2_FILECACHEMANAGERTESTS_H

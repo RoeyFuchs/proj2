@@ -14,8 +14,7 @@
 #include "Utils.h"
 #include "../Solver/Solution.h"
 #include "../Factory/MatrixSearchableFactory.h"
-#include "../Factory/StringSearchableFactory.h"
-#include "../Factory/StringSolutionFactory.h"
+#include "../Factory/MatrixSolutionFactory.h"
 #define SEPERATOR "$SEARCHABLE"
 #define SOLUTION "$SOLUTION"
 using namespace std;
@@ -32,10 +31,10 @@ public:
         //ToDo: maxe matrix work
       //  this->searchableFactory[SliceInitialNumbers(typeid(MatrixSearchable).name())] =
      //       make_shared<MatrixSearchableFactory>();
-        this->searchableFactory[SliceInitialNumbers(typeid(StringReverserSearchable).name())]
-        =make_shared<StringSearchableFactory>();
-        this->solutionFactory[SliceInitialNumbers(typeid(StringReverserSolution).name())]=
-            make_shared<StringSolutionFactory>();
+        this->searchableFactory[SliceInitialNumbers(typeid(MatrixSearchable).name())]
+        =make_shared<MatrixSearchableFactory>();
+        this->solutionFactory[SliceInitialNumbers(typeid(MatrixSolution).name())]=
+            make_shared<MatrixSolution>();
        //todo : add solution mtrix to our map :)
     }
     /**
