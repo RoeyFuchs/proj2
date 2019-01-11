@@ -8,10 +8,10 @@ int main() {
     //RunTests();
 
 
-   /* vector<string> a;
+   vector<string> a;
     a.push_back("5");
     a.push_back("0,0");
-    a.push_back("4,4");
+    a.push_back("4,5");
     a.push_back("5, 1 ,0 ,1 ,1");
     a.push_back("4, 300 ,500 ,300 ,0");
     a.push_back("1, 1 ,5 ,3 , 0");
@@ -22,6 +22,6 @@ int main() {
     string sosol = bfs->Search(*matrixSearchable);
     delete bfs;
     delete matrixSearchable;
-std::cout << sosol <<endl;*/
+std::cout << sosol <<endl;
     return 0;
 }
