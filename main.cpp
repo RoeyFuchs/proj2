@@ -20,6 +20,8 @@ int main() {
     MatrixSearchable* matrixSearchable = new MatrixSearchable(a);
     BFS* bfs = new BFS(matrixSearchable);
     string sosol = bfs->Search(*matrixSearchable);
+    delete bfs;
+    delete matrixSearchable;
 std::cout << sosol <<endl;
     return 0;
 }

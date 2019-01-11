@@ -9,6 +9,7 @@
 #include "Solution.h"
 #include "MatrixSearchable.h"
 #include "MatrixSolution.h"
+#include "../Utils/BFSUtils.h"
 
 
 class BFS : public Searcher<MatrixSearchable, string> {
