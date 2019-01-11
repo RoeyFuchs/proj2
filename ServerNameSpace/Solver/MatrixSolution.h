@@ -10,12 +10,28 @@ enum directions {Up, Down, Left, Right};
 
 class MatrixSolution : public Solution<int> {
   shared_ptr<State<shared_ptr<Point>>> finalPoint;
+  std::string solution;
 
  public:
 
-   MatrixSolution(vector<string> &vec, shared_ptr<State<shared_ptr<Point>>> point) {
+   MatrixSolution(shared_ptr<State<shared_ptr<Point>>> point) {
+       this->finalPoint = point;
   }
+  MatrixSolution(vector<string> vec) {
+       std::string sol;
+       for(std::string str : vec) {
+           sol += str;
+       }
+       this->solution = sol;
+   }
   string ToString() {
+      if(this->solution.empty()) {
+          this->solution = MakeStringFromState();
+      }
+      return this->solution;
+  }
+ private:
+  string MakeStringFromState() {
       shared_ptr<State<shared_ptr<Point>>> cuurntPoint = this->finalPoint;
       if (cuurntPoint == nullptr) {
           return "NO SOLUTION";
@@ -38,7 +54,7 @@ class MatrixSolution : public Solution<int> {
           cuurntPoint = cuurntPoint->GetCameFrom();
       }
       return MakeDirectionString(dir);
-  }
+   }
 
   string MakeDirectionString(std::list<directions> dir) {
        std::string str = "{";

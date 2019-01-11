@@ -9,6 +9,7 @@
 #include <memory>
 #include <iostream>
 #define UNDERLINE '\n'
+#define WALL -1
 class MatrixSearchable : public Searchable<shared_ptr<Point>> {
   vector<string> initialState;
   shared_ptr<Point> startPoint;
@@ -62,14 +63,22 @@ class MatrixSearchable : public Searchable<shared_ptr<Point>> {
       if (s->GetState()->getY() -1 >= 0) {
           shared_ptr<Point> p = make_shared<Point>(s->GetState()->getX(), s->GetState()->getY() -1);
           shared_ptr<State<shared_ptr<Point>>> state = make_shared<State<shared_ptr<Point>>>(p);
-          state->SetCost(this->matrix.at(s->GetState()->getY()-1).at(s->GetState()->getX()));
-          states.push_back(state);
+          double cost = this->matrix.at(s->GetState()->getY()-1).at(s->GetState()->getX());
+          if(IsCostValid(cost)) {
+              state->SetCost(cost);
+              states.push_back(state);
+          }
       }
       //down value
       if (s->GetState()->getY() + 1 < this->sizeRows) {
           shared_ptr<Point> p = make_shared<Point>(s->GetState()->getX(), s->GetState()->getY() +1);
           shared_ptr<State<shared_ptr<Point>>> state = make_shared<State<shared_ptr<Point>>>(p);
-          state->SetCost(this->matrix.at(s->GetState()->getY()+1).at(s->GetState()->getX()));
+          state->SetCost();
+          double cost = this->matrix.at(s->GetState()->getY()+1).at(s->GetState()->getX());
+          if(IsCostValid(cost)) {
+              state->SetCost(cost);
+              states.push_back(state);
+          }
           states.push_back(state);
       }
       //left value
@@ -87,6 +96,13 @@ class MatrixSearchable : public Searchable<shared_ptr<Point>> {
           states.push_back(state);
       }
       return states;
+  }
+
+  bool IsCostValid(double cost) {
+      if(cost != WALL) {
+          return true;
+      }
+      return false;
   }
 
 };

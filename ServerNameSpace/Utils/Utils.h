@@ -1,9 +1,7 @@
-//
-// Created by roey on 1/5/19.
-//
 
 #ifndef PROJ2_UTILS_H
 #define PROJ2_UTILS_H
+#define DELIMITER ","
 
 #include <queue>
 #include <list>
@@ -16,13 +14,18 @@
 
 
 
+/**
+ * convert a vector of strings to vector of vectors of ints (Matrix)
+ * @param vec the vector
+ * @return vector of vectors of ints
+ */
 static std::vector<std::vector<int>> ConvertStringToMatrix(std::vector<std::string> vec) {
 
     std::vector<std::vector<int>> matrix;
 
     for (int i = 0; i < vec.size(); ++i) {
         std::string s = vec.at(i);
-        std::string delimiter = ",";
+        std::string delimiter = DELIMITER;
         std::vector<int> row;
 
         size_t pos = 0;
@@ -37,7 +40,14 @@ static std::vector<std::vector<int>> ConvertStringToMatrix(std::vector<std::stri
     }
     return matrix;
 }
-
+/**
+ * slice a vector
+ * @tparam T type of vector
+ * @param myVec the vector
+ * @param beginIndex start index
+ * @param endIndex end index
+ * @return the sub vector
+ */
 template<class T>
 std::vector<T> Slice(std::vector<T> myVec, int beginIndex, int endIndex) {
     std::vector<T> newVec;

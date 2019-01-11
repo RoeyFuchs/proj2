@@ -55,8 +55,7 @@ class BFS : public Searcher<MatrixSearchable, string> {
               }
           }
       }
-      vector<string> a;
-      MatrixSolution sol(a,this->solution);
+      MatrixSolution sol(this->solution);
       return sol.ToString();
   }
 };
