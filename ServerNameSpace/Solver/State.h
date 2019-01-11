@@ -46,5 +46,13 @@ public:
     void SetCost(double cost) {
         this->cost = cost;
     }
+
+    double GetNumOfChildren() {
+        if(this->GetCameFrom() != nullptr) {
+            return this->GetCameFrom()->GetNumOfChildren()+1;
+        } else {
+            return 0;
+        }
+    }
 };
 #endif //PROJ2_STATE_H
