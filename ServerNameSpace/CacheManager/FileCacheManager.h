@@ -7,7 +7,6 @@
 
 #include "CacheManager.h"
 #include "../Utils/FileTextHendler.h"
-#include "../Utils/SharedPtrHash.h"
 
 using namespace std;
 #define PATH "cache.txt"
