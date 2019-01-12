@@ -55,7 +55,6 @@ bool CheckIfPathBetterInPriorityQueue(std::shared_ptr<State<std::shared_ptr<Poin
         que.push(value);
     }
     return better;
-
 }
 /**
  * check if there is a better path in a list

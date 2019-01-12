@@ -6,7 +6,8 @@
 #include "State.h"
 #include "MatrixSearchable.h"
 #include "Searcher.h"
-#include "../Utils/BFSUtils.h"
+#include "MatrixSolution.h"
+#include "../Utils/AStarUtils.h"
 class AStar : public Searcher<MatrixSearchable, string> {
   shared_ptr<State<shared_ptr<Point>>> initialState;
   shared_ptr<State<shared_ptr<Point>>> endState;
@@ -21,27 +22,39 @@ class AStar : public Searcher<MatrixSearchable, string> {
       this->matrix = &problem;
       std::priority_queue<shared_ptr<State<shared_ptr<Point>>>,
                           vector<shared_ptr<State<shared_ptr<Point>>>>,
-                          CompareStep<shared_ptr<Point>>> open;
+                          CompareStepAStar<shared_ptr<Point>>> open {CompareStepAStar<shared_ptr<Point>>(problem.GetEndPoint())};
       open.push(problem.GetInitialState());
       std::list<shared_ptr<State<shared_ptr<Point>>>> closed;
 
       while(!open.empty()) {
-          shared_ptr<State<shared_ptr<Point>>> m = open.top();
-          if(problem.IsGoalState(m)) {
-              //DONE
+          shared_ptr<State<shared_ptr<Point>>> current = open.top();
+          if(problem.IsGoalState(current)) {
+              this->solution = current;
+              break;
           }
           open.pop();
-          vector<shared_ptr<State<shared_ptr<Point>>>> successor = matrix->GetAllPossiableStates(m);
-          for(auto n : successor) {
-              if(CheckIfValueInsideList(n, closed)) {
+          closed.push_back(current);
+          vector<shared_ptr<State<shared_ptr<Point>>>> successor = matrix->GetAllPossiableStates(current);
+          for(auto children : successor) {
+              children->SetComeFrom(current);
+              double fVal = GetFValue(children, problem.GetEndPoint());
+              if(CheckIfValueInsideListAStar(children, closed)) {
                   continue;
               }
-              double cost = m->GetPathCost() + n->GetCost();
-              if (CheckIfValueInSidePriorityQueue(n, open) && cost < )
-
+              if(CheckIfValueInSidePriorityQueueAStar(children, open)) {
+                  if(CheckIfCostBetterInPriorityQueueAStar(children, open)) {
+                      RemoveValFromPriorityQueueByValueAStar(children, open);
+                  }
+              }
+              open.push(children);
           }
+          closed.push_back(current);
       }
+      MatrixSolution sol(this->solution);
+      return sol.ToString();
   }
+
+
 
 };
 

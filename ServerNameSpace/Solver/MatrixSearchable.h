@@ -109,6 +109,10 @@ class MatrixSearchable : public Searchable<shared_ptr<Point>> {
       return false;
   }
 
+  shared_ptr<State<shared_ptr<Point>>> GetEndPoint() {
+      return make_shared<State<shared_ptr<Point>>>(this->endPoint);;
+  }
+
 };
 
 #endif //PROJ2_MATRIXSEARCHABLE_H
