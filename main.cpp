@@ -3,6 +3,7 @@
 #include "Tests/FileCacheManagerTests.h"
 #include "ServerNameSpace/Solver/BFS.h"
 #include "ServerNameSpace/Solver/AStar.h"
+#include "ServerNameSpace/Solver/BreadthFirst.h"
 #include <memory.h>
 #include <vector>
 int main() {
@@ -26,12 +27,15 @@ int main() {
     MatrixSearchable *matrixSearchable = new MatrixSearchable(a);
     AStar *aStar = new AStar(matrixSearchable);
     BFS *bfs = new BFS(matrixSearchable);
+    BreadthFirst* breadthFirst = new BreadthFirst(matrixSearchable);
     string aStarsol = aStar->Search(*matrixSearchable);
     string bfsrsol = bfs->Search(*matrixSearchable);
+    string breadthFirstrsol = breadthFirst->Search(*matrixSearchable);
     delete aStar;
     delete matrixSearchable;
     delete bfs;
     std::cout << aStarsol << endl;
     std::cout << bfsrsol << endl;
+    std::cout << breadthFirstrsol << endl;
     return 0;
 }

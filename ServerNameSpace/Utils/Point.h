@@ -11,15 +11,18 @@ class Point{
       this->y = y;
   }
 
-  int getX(){
+  int getX() const{
       return this->x;
   }
-  int getY() {
+  int getY() const {
       return this->y;
   }
 
-  bool operator==(Point& point) {
+  bool operator==(const Point& point) const {
       return (this->getX() == point.getX() && this->getY() == point.getY());
+  }
+  bool operator<(const Point p) const {
+      return (this->getX()+this->getY() < p.getX()+p.getY());
   }
 };
 
