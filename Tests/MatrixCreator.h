@@ -14,7 +14,7 @@ static MatrixSearchable * Create(int x, int y, double chanceForWall) {
     for(int i = 0; i < y; ++i) {
         std::string str = "";
         for(int j = 0; j < x; ++j) {
-            int number = rand() % (100+((int)chanceForWall*100)) + 1;
+            int number = rand() % 100 + 1;
             if (rand() % 100 < (chanceForWall*100)) {
                 number = -1;
             }

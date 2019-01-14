@@ -53,6 +53,7 @@ class BFS : public Searcher<MatrixSearchable, string> {
               }
           }
       }
+      cout << "BFS: " << this->solution->GetPathCost()<<","<< this->visited << endl;
       MatrixSolution sol(this->solution);
       return sol.ToString();
   }

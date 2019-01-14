@@ -21,7 +21,7 @@ static bool CheckIfValueInSidePriorityQueue(std::shared_ptr<State<std::shared_pt
                                             std::vector<std::shared_ptr<State<std::shared_ptr<Point>>>>,
                                             CompareStep<std::shared_ptr<Point>>> que) {
     while (!que.empty()) {
-        if (que.top() == val) {
+        if (que.top()->GetState()->operator==(*val->GetState().get())) {
             return true;
         }
         que.pop();

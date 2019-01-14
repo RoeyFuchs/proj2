@@ -25,13 +25,14 @@ static void Run() {
     time_t start,end;
     double dif;
 
-    for(int i = 10; i <= 50; i+=5) {
+    for(int i = 60; i <= 100; i+=10) {
         MatrixSearchable * mat = Create(i, i, 0);
         //shared_ptr<MatrixSearchable> smat = make_shared<MatrixSearchable>(mat);
         graphs << i << " " << i << endl;
         graphs << to_string(mat->GetInitialState()->GetState()->getX()) + "," + to_string(mat->GetInitialState()->GetState()->getY()) << endl;
         graphs << to_string(mat->GetEndPoint()->GetState()->getX()) + "," + to_string(mat->GetEndPoint()->GetState()->getY()) << endl;
         printMatStream(mat, &graphs);
+        printMat(mat);
         cout << "Size : " << i <<"x"<<i <<endl;
         time (&start);
         bestFirst->SearchCOP(*mat, &solution);
@@ -40,7 +41,7 @@ static void Run() {
         cout << "best first done " << dif << endl;
         //dfs->SearchCOP(smat, &solution);
         time (&start);
-        breadthFirst->SearchCOP(*mat, &solution);
+        //breadthFirst->SearchCOP(*mat, &solution);
         time (&end);
         dif = difftime (end,start);
         cout << "breadth first done " << dif << endl;

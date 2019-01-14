@@ -32,7 +32,6 @@ class AStar : public Searcher<MatrixSearchable, string> {
               break;
           }
           open.pop();
-          closed.push_back(current);
           vector<shared_ptr<State<shared_ptr<Point>>>> successor = problem.GetAllPossiableStates(current);
           for(auto children : successor) {
               children->SetComeFrom(current);
@@ -43,6 +42,8 @@ class AStar : public Searcher<MatrixSearchable, string> {
               if(CheckIfValueInSidePriorityQueueAStar(children, open)) {
                   if(CheckIfCostBetterInPriorityQueueAStar(children, open)) {
                       RemoveValFromPriorityQueueByValueAStar(children, open);
+                  } else {
+                      continue;
                   }
               }
               open.push(children);
@@ -71,7 +72,6 @@ class AStar : public Searcher<MatrixSearchable, string> {
               break;
           }
           open.pop();
-          closed.push_back(current);
           vector<shared_ptr<State<shared_ptr<Point>>>> successor = problem.GetAllPossiableStates(current);
           for(auto children : successor) {
               children->SetComeFrom(current);
@@ -82,6 +82,8 @@ class AStar : public Searcher<MatrixSearchable, string> {
               if(CheckIfValueInSidePriorityQueueAStar(children, open)) {
                   if(CheckIfCostBetterInPriorityQueueAStar(children, open)) {
                       RemoveValFromPriorityQueueByValueAStar(children, open);
+                  } else {
+                      continue;
                   }
               }
               open.push(children);
