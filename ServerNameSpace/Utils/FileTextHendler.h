@@ -25,13 +25,14 @@ private:
     unordered_map<string,shared_ptr<SearchableFactory<P>>> searchableFactory;
     unordered_map<string,shared_ptr<SolutionFactory<S>>> solutionFactory;
 public:
-    FileTextHendler(string path){
+    FileTextHendler(string path,string &searchableFactoryName,shared_ptr<SearchableFactory<P>> searchableFactory,
+                   string& solutionFactoryName, shared_ptr<SolutionFactory<S>> solutionFactory){
         this->path= path;
         //initlize  factories maps
-        this->searchableFactory[SliceInitialNumbers(typeid(MatrixSearchable).name())]
-        =make_shared<MatrixSearchableFactory>();
-        this->solutionFactory[SliceInitialNumbers(typeid(MatrixSolution).name())]=
-            make_shared<MatrixSolutionFactory>();
+        this->searchableFactory[SliceInitialNumbers(searchableFactoryName)]
+        =searchableFactory;
+        this->solutionFactory[SliceInitialNumbers(solutionFactoryName)]=
+           solutionFactory;
     }
     /**
  * WriteResolvedProblem
@@ -44,10 +45,10 @@ public:
         outFile.open(path,std::ios_base::app);
         outFile<<SEPERATOR<<endl;
         outFile<<SliceInitialNumbers( typeid((*prob)).name())<<endl;
-        outFile<<prob->ToString()<<endl;
+        outFile<<prob->ToString();
         outFile<<SOLUTION<<endl;
         outFile<<SliceInitialNumbers( typeid((*sol)).name())<<endl;
-        outFile<<sol->ToString()<<endl;
+        outFile<<sol->ToString();
         outFile.close();
 
     }

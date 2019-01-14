@@ -16,8 +16,10 @@ class FileCacheManager : public CacheManager<P, S> {
   std::unordered_map<string, shared_ptr<Solution<S>>> cachedMap;
   shared_ptr<FileTextHendler<P, S>> fileTextHendler;
  public:
-  FileCacheManager() {
-      fileTextHendler = make_shared<FileTextHendler<P, S>>(PATH);
+  FileCacheManager(string& searchableFactoryName,shared_ptr<SearchableFactory<P>> searchableFactory,
+                   string& solutionFactoryName, shared_ptr<SolutionFactory<S>> solutionFactory) {
+      fileTextHendler = make_shared<FileTextHendler<P, S>>(PATH,searchableFactoryName,
+          searchableFactory,solutionFactoryName,solutionFactory);
       std::unordered_map<shared_ptr<Searchable<P>>, shared_ptr<Solution<S>>> cachedMap1 =
           fileTextHendler->ReadResolvedProblems();
           for (auto it = cachedMap1.cbegin(); it != cachedMap1.end(); ++it) {

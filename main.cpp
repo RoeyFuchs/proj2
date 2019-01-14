@@ -9,8 +9,7 @@
 #include <vector>
 int main() {
     //RunTests();
-
-     vector<string> a;
+    vector<string> a;
     a.push_back("5, 1 ,0 ,1 ,1");
     a.push_back("4, 300 ,500 ,300 ,0");
     a.push_back("1, 1 ,5 ,3 , 500");
@@ -20,12 +19,19 @@ int main() {
     a.push_back("4,4");
      shared_ptr<MatrixSearchable> matrixSearchable = make_shared< MatrixSearchable>(a);
      DFS *dfs = new DFS();
-     string dfsSol = dfs->Search(matrixSearchable)->ToString();
-     std::cout << dfsSol << endl;
+     shared_ptr<Solution<int>> dfsSol; /*= dfs->Search(matrixSearchable);*/
 
-     /*vector<string> vec;
+
+    shared_ptr<SearchableFactory<shared_ptr<Point>>> matrixSerachableFactory=make_shared<MatrixSearchableFactory>();
+    shared_ptr<SolutionFactory<int>> solFactory=make_shared<MatrixSolutionFactory>();
+     vector<string> vec;
+     string searchableMatrixName=typeid(MatrixSearchable).name();
+     string matrixSolutionName=typeid(MatrixSolution).name();
      shared_ptr<FileCacheManager<shared_ptr<Point>,int>> cacheManager
-     = make_shared<FileCacheManager<shared_ptr<Point>,int>>();*/
+     = make_shared<FileCacheManager<shared_ptr<Point>,int>>(searchableMatrixName,
+        matrixSerachableFactory,matrixSolutionName,solFactory);
+    dfsSol= cacheManager->GetSolution(matrixSearchable);
+    std::cout<<dfsSol->ToString()<<endl;
 
 
 /*    vector<string> a;
