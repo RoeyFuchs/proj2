@@ -22,13 +22,11 @@ class MatrixSearchable : public Searchable<shared_ptr<Point>> {
 
   MatrixSearchable(vector<string> &vec) : Searchable(vec) {
       this->initialState = vec;
-      this->sizeRows = stoi(vec.at(0));
-      this->sizeCulm = stoi(vec.at(0));
-      string startingPoint = vec.at(1);
+      string startingPoint = vec.at(vec.size() - 2);
       int startXPosition = startingPoint.find(",");
       int startX = stoi(startingPoint.substr(0, startXPosition));
       int startY = stoi(startingPoint.substr(startXPosition + 1, startingPoint.length() - 1));
-      string endingPoint = vec.at(2);
+      string endingPoint = vec.at(vec.size() - 1);
       int endXPosition = endingPoint.find(",");
       int endX = stoi(endingPoint.substr(0, endXPosition));
       int endY = stoi(endingPoint.substr(endXPosition+1, endingPoint.length() - 1));
@@ -36,8 +34,10 @@ class MatrixSearchable : public Searchable<shared_ptr<Point>> {
       this->startPoint = make_shared<Point>(startX, startY);
       this->endPoint = make_shared<Point>(endX, endY);
 
-      vector<string> matrixInString = Slice(vec, 3, vec.size()-1);
+      vector<string> matrixInString = Slice(vec, 0, vec.size()-3);
       this->matrix = ConvertStringToMatrix(matrixInString);
+      this->sizeRows = this->matrix.size();
+      this->sizeCulm = this->matrix.at(0).size();
 
   }
   virtual string ToString() {
@@ -51,7 +51,7 @@ class MatrixSearchable : public Searchable<shared_ptr<Point>> {
 
   shared_ptr<State<shared_ptr<Point>>> GetInitialState() {
       shared_ptr<State<shared_ptr<Point>>> a = make_shared<State<shared_ptr<Point>>>(this->startPoint);
-      a->SetCost(this->matrix.at(a->GetState()->getX()).at(a->GetState()->getY()));
+      a->SetCost(this->matrix.at(a->GetState()->getY()).at(a->GetState()->getX()));
       return a;
   }
   virtual bool IsGoalState(shared_ptr<State<shared_ptr<Point>>> state) {
@@ -111,6 +111,10 @@ class MatrixSearchable : public Searchable<shared_ptr<Point>> {
 
   shared_ptr<State<shared_ptr<Point>>> GetEndPoint() {
       return make_shared<State<shared_ptr<Point>>>(this->endPoint);;
+  }
+
+  vector<vector<int>> GetMatrix() {
+      return this->matrix;
   }
 
 };
