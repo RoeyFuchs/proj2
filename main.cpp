@@ -5,10 +5,12 @@
 #include "ServerNameSpace/Solver/DFS.h"
 #include "ServerNameSpace/Solver/AStar.h"
 #include "ServerNameSpace/Solver/BreadthFirst.h"
+#include "Tests/CompareAlgos.h"
 #include <memory.h>
 #include <vector>
 int main() {
-    //RunTests();
+    Run();
+    /*//RunTests();
     vector<string> a;
     a.push_back("5, 1 ,0 ,1 ,1");
     a.push_back("4, 300 ,500 ,300 ,0");
@@ -19,7 +21,7 @@ int main() {
     a.push_back("4,4");
      shared_ptr<MatrixSearchable> matrixSearchable = make_shared< MatrixSearchable>(a);
      DFS *dfs = new DFS();
-     shared_ptr<Solution<int>> dfsSol; /*= dfs->Search(matrixSearchable);*/
+     shared_ptr<Solution<int>> dfsSol; *//*= dfs->Search(matrixSearchable);*//*
 
 
     shared_ptr<SearchableFactory<shared_ptr<Point>>> matrixSerachableFactory=make_shared<MatrixSearchableFactory>();
@@ -34,7 +36,7 @@ int main() {
     std::cout<<dfsSol->ToString()<<endl;
 
 
-/*    vector<string> a;
+*//*    vector<string> a;
     a.push_back("5, 1 ,0 ,1 ,1");
     a.push_back("4, 300 ,500 ,300 ,0");
     a.push_back("1, 1 ,5 ,3 , 500");

@@ -23,12 +23,12 @@ static MatrixSearchable * Create(int x, int y, double chanceForWall) {
         str = str.substr(0, str.length()-1);
         vec.push_back(str);
     }
-    int xStartVal = (rand() % x);
-    int yStartVal = (rand() % y);
+    int xStartVal = 0;
+    int yStartVal = 0;
     std::string point = std::to_string(xStartVal) + ", " + std::to_string(yStartVal);
     vec.push_back(point);
-    int xEndVal = rand() % x;
-    int yEndVal = rand() % y;
+    int xEndVal = x-1;
+    int yEndVal = y-1;
     point = std::to_string(xEndVal) + ", " + std::to_string(yEndVal);
     vec.push_back(point);
     MatrixSearchable *matrixSearchable = new MatrixSearchable(vec);
@@ -42,6 +42,20 @@ static void printMat(MatrixSearchable * mat) {
             cout<< a.at(i).at(j) << " ";
         }
         cout<< endl;
-    }}
+    }
+}
+
+static void printMatStream(MatrixSearchable * mat, ostream* ostream) {
+    auto a = mat->GetMatrix();
+    for(int i = 0; i<a.size(); ++i) {
+        for(int j = 0; j < a.at(0).size(); ++j) {
+            *ostream<< a.at(i).at(j);
+            if(!(j == a.at(0).size()-1)) {
+                *ostream<<  ", ";
+            }
+        }
+        *ostream<< endl;
+    }
+}
 
 #endif //PROJ2_MATRIXCREATOR_H
