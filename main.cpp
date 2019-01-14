@@ -11,14 +11,13 @@ int main() {
     //RunTests();
 
      vector<string> a;
-     a.push_back("5");
-     a.push_back("0,0");
-     a.push_back("4,4");
-     a.push_back("5, 1 ,0 ,1 ,1");
-     a.push_back("4, 300 ,500 ,300 ,0");
-     a.push_back("-1, 1 ,5 ,3 , 500");
-     a.push_back("100, 10, 50 , 1 , 10");
-     a.push_back("1, 1 , 5 , 10 , 4");
+    a.push_back("5, 1 ,0 ,1 ,1");
+    a.push_back("4, 300 ,500 ,300 ,0");
+    a.push_back("1, 1 ,5 ,3 , 500");
+    a.push_back("100, 10, 50 , 1 , 10");
+    a.push_back("1, 1 , 5 , 10 , 4");
+    a.push_back("0,0");
+    a.push_back("4,4");
      shared_ptr<MatrixSearchable> matrixSearchable = make_shared< MatrixSearchable>(a);
      DFS *dfs = new DFS();
      string dfsSol = dfs->Search(matrixSearchable)->ToString();
@@ -29,15 +28,14 @@ int main() {
      = make_shared<FileCacheManager<shared_ptr<Point>,int>>();*/
 
 
-   /* vector<string> a;
-    a.push_back("5");
-    a.push_back("0,0");
-    a.push_back("4,4");
+/*    vector<string> a;
     a.push_back("5, 1 ,0 ,1 ,1");
     a.push_back("4, 300 ,500 ,300 ,0");
     a.push_back("1, 1 ,5 ,3 , 500");
     a.push_back("100, 10, 50 , 1 , 10");
     a.push_back("1, 1 , 5 , 10 , 4");
+    a.push_back("0,0");
+    a.push_back("4,4");
     MatrixSearchable *matrixSearchable = new MatrixSearchable(a);
     AStar *aStar = new AStar(matrixSearchable);
     BFS *bfs = new BFS(matrixSearchable);

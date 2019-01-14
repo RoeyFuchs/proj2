@@ -14,25 +14,25 @@ class DFS : Searcher<shared_ptr<MatrixSearchable>, shared_ptr<MatrixSolution>> {
  public:
   virtual shared_ptr<MatrixSolution> Search(shared_ptr<MatrixSearchable> problem) {
       shared_ptr<State<shared_ptr<Point>>> solution;
-      list<shared_ptr<State<shared_ptr<Point>>>> visitedNodes;
+      list<shared_ptr<State<shared_ptr<Point>>>> visitedPoints;
       vector<shared_ptr<State<shared_ptr<Point>>>> adjacentPoints;
       stack<shared_ptr<State<shared_ptr<Point>>>> rough;
       bool isRoot = true;
       //initialize start point
-      shared_ptr<State<shared_ptr<Point>>> currentNode = problem->GetInitialState();
-      while (!(problem->IsGoalState(currentNode))) {
+      shared_ptr<State<shared_ptr<Point>>> currentPoint = problem->GetInitialState();
+      while (!(problem->IsGoalState(currentPoint))) {
           //get all possiable states to move
-          adjacentPoints = problem->GetAllPossiableStates(currentNode);
+          adjacentPoints = problem->GetAllPossiableStates(currentPoint);
           bool foundNotVisited = false;
-          visitedNodes.push_back(currentNode);
+          visitedPoints.push_back(currentPoint);
           //loop trought all neighbors of current node
           for (auto point: adjacentPoints) {
-              if (!CheckIfValueInsideList(point,visitedNodes)) {
-                  rough.push(currentNode);
+              if (!CheckIfValueInsideList(point,visitedPoints)) {
+                  rough.push(currentPoint);
                   //set its came from
-                  point->SetComeFrom(currentNode);
-                  visitedNodes.push_back(point);
-                  currentNode = point;
+                  point->SetComeFrom(currentPoint);
+                  visitedPoints.push_back(point);
+                  currentPoint = point;
                   foundNotVisited = true;
                   break;
               }
@@ -44,11 +44,11 @@ class DFS : Searcher<shared_ptr<MatrixSearchable>, shared_ptr<MatrixSolution>> {
               //no trajectory found
               return nullptr;
           }
-          currentNode = rough.top();
+          currentPoint = rough.top();
           rough.pop();
       }
       //reached goal state
-      shared_ptr<MatrixSolution> sol = make_shared<MatrixSolution>(currentNode);
+      shared_ptr<MatrixSolution> sol = make_shared<MatrixSolution>(currentPoint);
       return sol;
 
   }
