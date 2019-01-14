@@ -64,26 +64,21 @@ public:
         vector<string> currentPro;
         vector<string> currentSol;
         inFile.open(this->path);
-      std::getline(inFile,line);
-        while (line.size()>0){
+        while (std::getline(inFile,line)){
             //read each ResolvedProblem
             if(line==SEPERATOR){
                 std::getline(inFile,line);
                 string searchableType= line;
-                std::getline(inFile,line);
                 //Read untill solution
-                while (line.size()>0 &&line!= SOLUTION){
+                while (std::getline(inFile,line)&&line!= SOLUTION){
                     currentPro.push_back(line);
-                    std::getline(inFile,line);
                 }
                 //move on above soultion seperator
                 std::getline(inFile,line);
                 string solutionType= line;
-                std::getline(inFile,line);
                 //Read untill next problem
-                while (line.size()>0 && line!= SEPERATOR){
+                while (std::getline(inFile,line)&& line!= SEPERATOR){
                     currentSol.push_back(line);
-                    std::getline(inFile,line);
                 }
                 shared_ptr<Searchable<P>> newPro= this->searchableFactory[searchableType]->Create(currentPro);
                 shared_ptr<Solution<S>> newSol= this->solutionFactory[solutionType]->Create(currentSol);
