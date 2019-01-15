@@ -1,18 +1,14 @@
 
 
-#include "ServerNameSpace/Solver/Solver.h"
-#include "ServerNameSpace/Solver/BFS.h"
-#include "ServerNameSpace/Solver/DFS.h"
-#include "ServerNameSpace/Solver/AStar.h"
-#include "ServerNameSpace/Solver/BreadthFirst.h"
-#include "ServerNameSpace/CacheManager/FileCacheManager.h"
+#include "ServerNameSpace/ClientHendlers/MyClientTestHendler.h"
 #include "Tests/MatrixCreator.h"
 #include "Tests/CompareAlgos.h"
 #include <memory.h>
 #include <vector>
 int main() {
 
-   Run();
+    shared_ptr<MyClientTestHendler> client=make_shared<MyClientTestHendler>();
+   //Run();
 
    /*vector<string> a;
    a.push_back("1,1,1,1,1");
@@ -25,8 +21,8 @@ int main() {
 
 
     //RunTests();
+/*
 
-    /*
     vector<string> a;
     a.push_back("5, 1 ,0 ,1 ,1");
     a.push_back("4, 300 ,500 ,300 ,0");
@@ -57,7 +53,7 @@ int main() {
    shared_ptr<MatrixSearchable> matrixSerachable= make_shared<MatrixSearchable>(a);
         string solu= solver->Solve(matrixSerachable)->ToString();
         std::cout<<solu<<endl;
-        */
+*/
 
 
     return 0;
