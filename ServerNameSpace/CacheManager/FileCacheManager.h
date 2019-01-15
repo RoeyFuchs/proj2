@@ -7,7 +7,8 @@
 
 #include "CacheManager.h"
 #include "../Utils/FileTextHendler.h"
-
+#include <mutex>
+mutex locker;
 using namespace std;
 #define PATH "cache.txt"
 template<class P, class S>
@@ -16,15 +17,17 @@ class FileCacheManager : public CacheManager<P, S> {
   std::unordered_map<string, shared_ptr<S>> cachedMap;
   shared_ptr<FileTextHendler<P, S>> fileTextHendler;
  public:
-  FileCacheManager(string& searchableFactoryName,shared_ptr<SearchableFactory<P>> searchableFactory,
-                   string& solutionFactoryName, shared_ptr<SolutionFactory<S>> solutionFactory) {
-      fileTextHendler = make_shared<FileTextHendler<P, S>>(PATH,searchableFactoryName,
-          searchableFactory,solutionFactoryName,solutionFactory);
+  FileCacheManager(string &searchableFactoryName, shared_ptr<SearchableFactory<P>> searchableFactory,
+                   string &solutionFactoryName, shared_ptr<SolutionFactory<S>> solutionFactory) {
+      locker.lock();
+      fileTextHendler = make_shared<FileTextHendler<P, S>>(PATH, searchableFactoryName,
+                                                           searchableFactory, solutionFactoryName, solutionFactory);
       std::unordered_map<shared_ptr<P>, shared_ptr<S>> cachedMap1 =
           fileTextHendler->ReadResolvedProblems();
-          for (auto it = cachedMap1.cbegin(); it != cachedMap1.end(); ++it) {
-              this->cachedMap[(*it).first->ToString()] = (*it).second;
-          }
+      for (auto it = cachedMap1.cbegin(); it != cachedMap1.end(); ++it) {
+          this->cachedMap[(*it).first->ToString()] = (*it).second;
+      }
+      locker.unlock();
   }
   /**
    * IsSolutionExist
@@ -32,7 +35,9 @@ class FileCacheManager : public CacheManager<P, S> {
    * @return true if solution to specific problem is exist or false otherwise
    */
   virtual bool IsSolutionExist(shared_ptr<P> problem) {
-      int result= (this->cachedMap.count(problem->ToString()));
+      locker.lock();
+      int result = (this->cachedMap.count(problem->ToString()));
+      locker.unlock();
       return result;
 
   }
@@ -43,10 +48,13 @@ class FileCacheManager : public CacheManager<P, S> {
    * add new solution to chach map
    */
   void AddSolution(shared_ptr<P> pr, shared_ptr<S> so) {
+
       if (!this->IsSolutionExist(pr)) {
+          locker.lock();
           this->cachedMap[(*pr).ToString()] = so;
-          this->fileTextHendler->WriteResolvedProblem(pr ,so);
+          this->fileTextHendler->WriteResolvedProblem(pr, so);
       }
+      locker.unlock();
   }
   /**
    * GetSolution
@@ -55,9 +63,12 @@ class FileCacheManager : public CacheManager<P, S> {
    */
   shared_ptr<S> GetSolution(shared_ptr<P> pr) {
       try {
+          locker.lock();
           shared_ptr<S> so = this->cachedMap[pr->ToString()];
+          locker.unlock();
           return so;
-      }catch (const out_of_range &e){
+      } catch (const out_of_range &e) {
+          locker.unlock();
           return nullptr;
       }
   }
