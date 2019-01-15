@@ -48,7 +48,7 @@ public:
         outFile<<prob->ToString();
         outFile<<SOLUTION<<endl;
         outFile<<SliceInitialNumbers( typeid((*sol)).name())<<endl;
-        outFile<<sol->ToString();
+        outFile<<sol->ToString()<<endl;
         outFile.close();
 
     }
@@ -66,8 +66,9 @@ public:
         inFile.open(this->path);
         while (std::getline(inFile,line)){
             //read each ResolvedProblem
-            if(line==SEPERATOR){
-                std::getline(inFile,line);
+            if(line==SEPERATOR) {
+                std::getline(inFile, line);
+            }
                 string searchableType= line;
                 //Read untill solution
                 while (std::getline(inFile,line)&&line!= SOLUTION){
@@ -86,7 +87,6 @@ public:
                 cachedMap[newPro]= newSol;
                 currentPro.clear();
                 currentSol.clear();
-            }
         }
       return cachedMap;
     }
