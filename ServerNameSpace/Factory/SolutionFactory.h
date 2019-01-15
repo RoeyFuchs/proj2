@@ -10,6 +10,6 @@
 template <class S>
 class SolutionFactory{
  public:
-   virtual shared_ptr<Solution<S>> Create(vector<std::string> vec)=0;
+   virtual shared_ptr<S> Create(vector<std::string> vec)=0;
 };
 #endif //PROJ2_SOLUTIONFACTORY_H

@@ -6,10 +6,10 @@
 #define PROJ2_MATRIXSEARCHABLEFACTORY_H
 #include "SearchableFactory.h"
 #include "../Solver/MatrixSearchable.h"
-class MatrixSearchableFactory:public SearchableFactory<shared_ptr<Point>>{
+class MatrixSearchableFactory:public SearchableFactory<MatrixSearchable>{
  public:
-  virtual shared_ptr<Searchable<shared_ptr<Point>>> Create(vector<std::string> vec){
-    shared_ptr<Searchable<shared_ptr<Point>>> a= make_shared<MatrixSearchable>(vec);
+  virtual shared_ptr<MatrixSearchable> Create(vector<std::string> vec){
+    shared_ptr<MatrixSearchable> a= make_shared<MatrixSearchable>(vec);
     return a;
   }
 

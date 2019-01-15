@@ -40,7 +40,7 @@ public:
  * @param sol
  * write problem and solution to text file
  */
-    void WriteResolvedProblem(shared_ptr<Searchable<P>> prob,shared_ptr<Solution<S>> sol){
+    void WriteResolvedProblem(shared_ptr<P> prob,shared_ptr<S> sol){
         std::ofstream outFile;
         outFile.open(path,std::ios_base::app);
         outFile<<SEPERATOR<<endl;
@@ -56,10 +56,10 @@ public:
  * ReadResolvedProblem
  * @return tuple of string and solution
  */
-  std::unordered_map<shared_ptr<Searchable<P>>,shared_ptr<Solution<S>>>
+  std::unordered_map<shared_ptr<P>,shared_ptr<S>>
       ReadResolvedProblems( ){
         std::ifstream inFile;
-      std::unordered_map<shared_ptr<Searchable<P>>,shared_ptr<Solution<S>>>cachedMap;
+      std::unordered_map<shared_ptr<P>,shared_ptr<S>>cachedMap;
         string line;
         vector<string> currentPro;
         vector<string> currentSol;
@@ -80,8 +80,8 @@ public:
                 while (std::getline(inFile,line)&& line!= SEPERATOR){
                     currentSol.push_back(line);
                 }
-                shared_ptr<Searchable<P>> newPro= this->searchableFactory[searchableType]->Create(currentPro);
-                shared_ptr<Solution<S>> newSol= this->solutionFactory[solutionType]->Create(currentSol);
+                shared_ptr<P> newPro= this->searchableFactory[searchableType]->Create(currentPro);
+                shared_ptr<S> newSol= this->solutionFactory[solutionType]->Create(currentSol);
 
                 cachedMap[newPro]= newSol;
                 currentPro.clear();

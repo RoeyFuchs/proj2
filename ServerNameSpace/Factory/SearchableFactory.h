@@ -10,6 +10,6 @@
 template <class P>
 class SearchableFactory{
  public:
-    virtual shared_ptr<Searchable<P>> Create(vector<std::string> vec)=0;
+    virtual shared_ptr<P> Create(vector<std::string> vec)=0;
 };
 #endif //PROJ2_FACTORY_H

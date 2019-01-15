@@ -5,9 +5,9 @@
 #ifndef PROJ2_MATRIXSOLUTIONFACTORY_H
 #include "SolutionFactory.h"
 #include "../Solver/MatrixSolution.h"
-class MatrixSolutionFactory:public SolutionFactory<int>{
+class MatrixSolutionFactory:public SolutionFactory<MatrixSolution>{
  public:
-  virtual shared_ptr<Solution<int>> Create(vector<std::string> vec){
+  virtual shared_ptr<MatrixSolution> Create(vector<std::string> vec){
       return make_shared<MatrixSolution>(vec);
   }
 };

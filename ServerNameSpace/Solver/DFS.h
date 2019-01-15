@@ -9,7 +9,7 @@
 #include "Searcher.h"
 #include <unordered_set>
 #include "../Utils/BFSUtils.h"
-class DFS : public Searcher<shared_ptr<MatrixSearchable>, shared_ptr<MatrixSolution>> {
+class DFS : public Searcher<MatrixSearchable,MatrixSolution> {
 
  public:
   virtual shared_ptr<MatrixSolution> Search(shared_ptr<MatrixSearchable> problem) {

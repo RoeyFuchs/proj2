@@ -21,7 +21,7 @@ class Solver{
    * @param problem
    * @return  solution to a problem
    */
-  shared_ptr<Solution<S>> Solve(shared_ptr<Searchable<P>> problem){
+  shared_ptr<S> Solve(shared_ptr<P> problem){
       if(this->cache->IsSolutionExist(problem)){
           return this->cache->GetSolution(problem);
       }else{
