@@ -18,7 +18,11 @@ class BFS : public Searcher<MatrixSearchable, MatrixSolution> {
 
  public:
   BFS() = default;
-
+/**
+ * Search
+ * @param problem
+ * @return Matrix solution to a problem by bfs algorythm
+ */
   virtual shared_ptr<MatrixSolution> Search(shared_ptr<MatrixSearchable> problem) {
       this->solution = nullptr;
       this->visited = 0;
@@ -35,6 +39,7 @@ class BFS : public Searcher<MatrixSearchable, MatrixSolution> {
               break;
           }
           vector<shared_ptr<State<shared_ptr<Point>>>> successor = problem->GetAllPossiableStates(n);
+          //move on all its suceessors
           for (shared_ptr<State<shared_ptr<Point>>> s: successor) {
               if (!CheckIfValueInSidePriorityQueue(s, open) && !CheckIfValueInsideList(s, closed)) {
                   s->SetComeFrom(n);

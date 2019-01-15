@@ -11,7 +11,11 @@ class BreadthFirst {
 
  public:
   BreadthFirst() = default;
-
+/**
+ * Search
+ * @param problem
+ * @return Matrix solution to a problem bu BreadthFirst algorythm
+ */
   virtual shared_ptr<MatrixSolution> Search(shared_ptr<MatrixSearchable> problem) {
       this->visited = 0;
       this->solution = nullptr;
@@ -29,6 +33,7 @@ class BreadthFirst {
               break;
           }
           vector<shared_ptr<State<shared_ptr<Point>>>> successor = problem->GetAllPossiableStates(curr);
+          //move on all its successors
           for (auto children : successor) {
               if (!discovered[*children->GetState().get()]) {
                   discovered[*children->GetState().get()] = true;
