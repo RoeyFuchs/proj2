@@ -14,7 +14,11 @@ class AStar : public Searcher<MatrixSearchable, MatrixSolution> {
 
  public:
   AStar() = default;
-
+/**
+ * Search
+ * @param problem
+ * @return Matrix solution to a problem bu a star algorythm
+ */
   shared_ptr<MatrixSolution> Search(shared_ptr<MatrixSearchable> problem) {
       this->solution = nullptr;
       this->visited = 0;
