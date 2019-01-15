@@ -13,7 +13,7 @@ using namespace std;
 #include <memory.h>
 class ClientHendler {
 public:
-    virtual void HandleClient(InputStream inputStream, OutputStream outputStream)=0;
+    virtual void HandleClient(InputStream& inputStream, OutputStream& outputStream)=0;
 
 };
 

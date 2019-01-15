@@ -1,11 +1,7 @@
+#ifndef PROJ2_PARALLEL_H
+#define PROJ2_PARALLEL_H
 
-#ifndef PROJ2_MYSERIALSERVER_H
-#define PROJ2_MYSERIALSERVER_H
 #include "../Server.h"
-#include "../Stream/InputStream.h"
-#include "../Stream/OutputStream.h"
-#define TIMEOUT_SECONDE 10
-#define TIMEOUT_MILISECONDE 0
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -16,20 +12,16 @@
 #include <string.h>
 #include <sys/socket.h>
 #include <thread>
-
-class MySerialServer : public Server {
+#define TIMEOUT_SECONDE 20
+#define TIMEOUT_MILISECONDE 0
+class MyParallelServer : public Server {
   int sockfd;
   ClientHendler *clientHendler;
   bool active;
-
  public:
 
-  MySerialServer() = default;
-/**
- * setup the server
- * @param port - the port to use with
- * @param clientHendler - the object that will handle the client
- */
+  MyParallelServer() = default;
+
   virtual void Open(int port, ClientHendler *clientHendler) {
       this->clientHendler = clientHendler;
       int sockfd, newsockfd, clilen;
@@ -60,15 +52,13 @@ class MySerialServer : public Server {
 
   void Start() {
       //open a thread to server-client stream
-      thread t1(&MySerialServer::MakeConnection, this);
-      t1.detach();
+      thread t1(&MyParallelServer::MakeConnection, this);
+      t1.join();
   }
-/**
- * create a connection with client
- */
+
   void MakeConnection() {
       //only 1 at time - serial server
-      listen(this->sockfd, 1);
+      listen(this->sockfd, SOMAXCONN);
 
       int newsockfd, clilen, n;
       struct sockaddr_in cli_addr;
@@ -91,17 +81,20 @@ class MySerialServer : public Server {
           /* Write a response to the client */
           OutputStream outStream(newsockfd);
           InputStream inputStream(newsockfd);
-          this->clientHendler->HandleClient(inputStream, outStream);
+
+          thread t1(&MyParallelServer::StartCliendHandlerThread, this, std::ref(inputStream), std::ref(outStream));
+          t1.join();
       }
   }
-  /**
-   * stop the server
-   */
+
+  void StartCliendHandlerThread(InputStream &in, OutputStream &out) {
+      this->clientHendler->HandleClient(in, out);
+  }
+
   virtual void Stop() {
-      //change the active flag, and close the socket
       this->active = false;
       close(this->sockfd);
   }
 };
 
-#endif //PROJ2_MYSERIALSERVER_H
+#endif //PROJ2_PARALLEL_H

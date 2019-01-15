@@ -55,27 +55,27 @@ class AStar : public Searcher<MatrixSearchable, MatrixSolution> {
       return sol;
   }
 
-  string SearchCOP(MatrixSearchable problem, ostream* ostream) {
+  shared_ptr<MatrixSolution> SearchCOP(shared_ptr<MatrixSearchable> problem, ostream* ostream) {
       this->solution = nullptr;
       this->visited = 0;
       std::priority_queue<shared_ptr<State<shared_ptr<Point>>>,
                           vector<shared_ptr<State<shared_ptr<Point>>>>,
-                          CompareStepAStar<shared_ptr<Point>>> open {CompareStepAStar<shared_ptr<Point>>(problem.GetEndPoint())};
-      open.push(problem.GetInitialState());
+                          CompareStepAStar<shared_ptr<Point>>> open {CompareStepAStar<shared_ptr<Point>>(problem->GetEndPoint())};
+      open.push(problem->GetInitialState());
       std::list<shared_ptr<State<shared_ptr<Point>>>> closed;
 
       while(!open.empty()) {
           this->visited++;
           shared_ptr<State<shared_ptr<Point>>> current = open.top();
-          if(problem.IsGoalState(current)) {
+          if(problem->IsGoalState(current)) {
               this->solution = current;
               break;
           }
           open.pop();
-          vector<shared_ptr<State<shared_ptr<Point>>>> successor = problem.GetAllPossiableStates(current);
+          vector<shared_ptr<State<shared_ptr<Point>>>> successor = problem->GetAllPossiableStates(current);
           for(auto children : successor) {
               children->SetComeFrom(current);
-              double fVal = GetFValue(children, problem.GetEndPoint());
+              double fVal = GetFValue(children, problem->GetEndPoint());
               if(CheckIfValueInsideListAStar(children, closed)) {
                   continue;
               }
@@ -91,8 +91,8 @@ class AStar : public Searcher<MatrixSearchable, MatrixSolution> {
           closed.push_back(current);
       }
       *ostream<< "AStar: " << this->solution->GetPathCost()<<","<< this->visited << endl;
-      MatrixSolution sol(this->solution);
-      return sol.ToString();
+      shared_ptr<MatrixSolution> sol=make_shared<MatrixSolution> (this->solution);
+      return sol;
   }
 
 

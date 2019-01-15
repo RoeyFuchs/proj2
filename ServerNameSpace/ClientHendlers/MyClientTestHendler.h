@@ -26,11 +26,12 @@ class MyClientTestHendler: public ClientHendler{
       solver= make_shared<Solver<MatrixSearchable,MatrixSolution>>
           (cacheManager,aStar);
   }
-  virtual void HandleClient(InputStream inputStream, OutputStream outputStream){
+  virtual void HandleClient(InputStream& inputStream, OutputStream& outputStream){
       string line;
       vector<string> vec;
       inputStream>>line;
-      while ( line!= END){
+      while (line!= END){
+          cout<<line<<endl;
           vec.push_back(line);
           inputStream>>line;
       }

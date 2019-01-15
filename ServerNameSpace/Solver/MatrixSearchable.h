@@ -40,6 +40,10 @@ class MatrixSearchable : public Searchable<shared_ptr<Point>> {
       this->sizeCulm = this->matrix.at(0).size();
 
   }
+  /**
+   * create string with the matrix
+   * @return the string
+   */
   virtual string ToString() {
       string str;
       for (int i = 0; i < this->initialState.size(); i++) {
@@ -48,7 +52,10 @@ class MatrixSearchable : public Searchable<shared_ptr<Point>> {
       }
       return str;
   }
-
+/**
+ * create the start point
+ * @return return the state of the stare
+ */
   shared_ptr<State<shared_ptr<Point>>> GetInitialState() {
       shared_ptr<State<shared_ptr<Point>>> a = make_shared<State<shared_ptr<Point>>>(this->startPoint);
       a->SetCost(this->matrix.at(a->GetState()->getY()).at(a->GetState()->getX()));

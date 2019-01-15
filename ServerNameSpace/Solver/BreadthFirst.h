@@ -12,23 +12,23 @@ class BreadthFirst {
  public:
   BreadthFirst() = default;
 
-  string Search(MatrixSearchable problem) {
+  virtual shared_ptr<MatrixSolution> Search(shared_ptr<MatrixSearchable> problem) {
       this->visited = 0;
       this->solution = nullptr;
       map<Point, bool> discovered;
-      discovered[*problem.GetInitialState()->GetState().get()] = true;
+      discovered[*problem->GetInitialState()->GetState().get()] = true;
       queue<shared_ptr<State<shared_ptr<Point>>>> q;
-      q.push(problem.GetInitialState());
+      q.push(problem->GetInitialState());
 
       while (!q.empty()) {
           this->visited++;
           auto curr = q.front();
           q.pop();
-          if (problem.IsGoalState(curr)) {
+          if (problem->IsGoalState(curr)) {
               this->solution = curr;
               break;
           }
-          vector<shared_ptr<State<shared_ptr<Point>>>> successor = problem.GetAllPossiableStates(curr);
+          vector<shared_ptr<State<shared_ptr<Point>>>> successor = problem->GetAllPossiableStates(curr);
           for (auto children : successor) {
               if (!discovered[*children->GetState().get()]) {
                   discovered[*children->GetState().get()] = true;
@@ -37,28 +37,27 @@ class BreadthFirst {
               }
           }
       }
-      cout<< "BreadthFS: " << this->solution->GetPathCost()<<","<< this->visited << endl;
-      MatrixSolution sol(this->solution);
-      return sol.ToString();
+      shared_ptr<MatrixSolution> sol = make_shared<MatrixSolution>(this->solution);
+      return sol;
   }
 
-  string SearchCOP(MatrixSearchable problem, ostream* ostream) {
+  virtual shared_ptr<MatrixSolution> SearchCOP(shared_ptr<MatrixSearchable> problem, ostream* ostream) {
       this->visited = 0;
       this->solution = nullptr;
       map<Point, bool> discovered;
-      discovered[*problem.GetInitialState()->GetState().get()] = true;
+      discovered[*problem->GetInitialState()->GetState().get()] = true;
       queue<shared_ptr<State<shared_ptr<Point>>>> q;
-      q.push(problem.GetInitialState());
+      q.push(problem->GetInitialState());
 
       while (!q.empty()) {
           this->visited++;
           auto curr = q.front();
           q.pop();
-          if (problem.IsGoalState(curr)) {
+          if (problem->IsGoalState(curr)) {
               this->solution = curr;
               break;
           }
-          vector<shared_ptr<State<shared_ptr<Point>>>> successor = problem.GetAllPossiableStates(curr);
+          vector<shared_ptr<State<shared_ptr<Point>>>> successor = problem->GetAllPossiableStates(curr);
           for (auto children : successor) {
               if (!discovered[*children->GetState().get()]) {
                   discovered[*children->GetState().get()] = true;
@@ -68,8 +67,8 @@ class BreadthFirst {
           }
       }
       *ostream << "BreadthFS: " << this->solution->GetPathCost()<<","<< this->visited << endl;
-      MatrixSolution sol(this->solution);
-      return sol.ToString();
+      shared_ptr<MatrixSolution> sol = make_shared<MatrixSolution>(this->solution);
+      return sol;
   }
 
 };

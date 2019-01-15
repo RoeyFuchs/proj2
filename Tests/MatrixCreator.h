@@ -8,7 +8,7 @@
 #include <memory>
 #include "../ServerNameSpace/Solver/MatrixSearchable.h"
 
-static MatrixSearchable * Create(int x, int y, double chanceForWall) {
+static shared_ptr<MatrixSearchable> Create(int x, int y, double chanceForWall) {
     srand (time(NULL));
     std::vector<std::string> vec;
     for(int i = 0; i < y; ++i) {
@@ -31,8 +31,8 @@ static MatrixSearchable * Create(int x, int y, double chanceForWall) {
     int yEndVal = y-1;
     point = std::to_string(xEndVal) + ", " + std::to_string(yEndVal);
     vec.push_back(point);
-    MatrixSearchable *matrixSearchable = new MatrixSearchable(vec);
-    return matrixSearchable;
+    shared_ptr<MatrixSearchable> a = make_shared<MatrixSearchable>(vec);
+    return a;
 }
 
 static void printMat(MatrixSearchable * mat) {

@@ -22,31 +22,36 @@ static void Run() {
     DFS* dfs = new DFS();
     BreadthFirst* breadthFirst = new BreadthFirst();
     AStar* aStar = new AStar();
+
     time_t start,end;
     double dif;
 
-    for(int i = 60; i <= 100; i+=10) {
-        MatrixSearchable * mat = Create(i, i, 0);
-        //shared_ptr<MatrixSearchable> smat = make_shared<MatrixSearchable>(mat);
+    for(int i = 10; i <=10; i+=10) {
+        shared_ptr<MatrixSearchable>  smat = Create(i, i, 0);
         graphs << i << " " << i << endl;
-        graphs << to_string(mat->GetInitialState()->GetState()->getX()) + "," + to_string(mat->GetInitialState()->GetState()->getY()) << endl;
-        graphs << to_string(mat->GetEndPoint()->GetState()->getX()) + "," + to_string(mat->GetEndPoint()->GetState()->getY()) << endl;
-        printMatStream(mat, &graphs);
-        printMat(mat);
+        graphs << to_string(smat->GetInitialState()->GetState()->getX()) + "," + to_string(smat->GetInitialState()->GetState()->getY()) << endl;
+        graphs << to_string(smat->GetEndPoint()->GetState()->getX()) + "," + to_string(smat->GetEndPoint()->GetState()->getY()) << endl;
+        printMatStream(smat.get(), &graphs);
+        printMat(smat.get());
         cout << "Size : " << i <<"x"<<i <<endl;
         time (&start);
-        bestFirst->SearchCOP(*mat, &solution);
+        bestFirst->SearchCOP(smat, &solution);
+
         time (&end);
         dif = difftime (end,start);
         cout << "best first done " << dif << endl;
-        //dfs->SearchCOP(smat, &solution);
         time (&start);
-        //breadthFirst->SearchCOP(*mat, &solution);
+        dfs->SearchCOP(smat, &solution);
+        time (&end);
+        dif = difftime (end,start);
+        cout << "dfs first done " << dif << endl;
+        time (&start);
+        breadthFirst->SearchCOP(smat, &solution);
         time (&end);
         dif = difftime (end,start);
         cout << "breadth first done " << dif << endl;
         time (&start);
-        aStar->SearchCOP(*mat, &solution);
+        aStar->SearchCOP(smat, &solution);
         time (&end);
         dif = difftime (end,start);
         cout << "a star done " << dif << endl;
@@ -56,6 +61,11 @@ static void Run() {
 
     graphs.close();
     solution.close();
+
+    delete bestFirst;
+    delete dfs;
+    delete breadthFirst;
+    delete aStar;
 
 }
 
