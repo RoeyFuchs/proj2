@@ -26,7 +26,9 @@ class Solver{
           return this->cache->GetSolution(problem);
       }else{
           //solve the problem
-          return this->searcher->Search(problem);
+          shared_ptr<S> solution= this->searcher->Search(problem);
+          this->cache->AddSolution(problem,solution);
+          return solution;
       }
   }
 };

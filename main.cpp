@@ -1,13 +1,14 @@
 
 
-#include "ServerNameSpace/ClientHendlers/MyClientTestHendler.h"
-#include "Tests/MatrixCreator.h"
-#include "Tests/CompareAlgos.h"
+
 #include <memory.h>
 #include <vector>
+#include "ServerNameSpace/Server.h"
+using namespace server_side;
 int main() {
+/*
+  // shared_ptr<MyClientTestHendler> client=make_shared<MyClientTestHendler>();
 
-    shared_ptr<MyClientTestHendler> client=make_shared<MyClientTestHendler>();
    //Run();
 
    /*vector<string> a;
@@ -21,8 +22,8 @@ int main() {
 
 
     //RunTests();
-/*
 
+/*
     vector<string> a;
     a.push_back("5, 1 ,0 ,1 ,1");
     a.push_back("4, 300 ,500 ,300 ,0");
@@ -51,10 +52,10 @@ int main() {
 
    //Todo: transfer to client hendler
    shared_ptr<MatrixSearchable> matrixSerachable= make_shared<MatrixSearchable>(a);
-        string solu= solver->Solve(matrixSerachable)->ToString();
-        std::cout<<solu<<endl;
-*/
+        shared_ptr<MatrixSolution> solu= solver->Solve(matrixSerachable);
+        std::cout<<solu->ToString()<<endl;
 
+*/
 
     return 0;
 }
