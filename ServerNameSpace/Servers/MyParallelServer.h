@@ -14,10 +14,11 @@
 #include <thread>
 #define TIMEOUT_SECONDE 20
 #define TIMEOUT_MILISECONDE 0
-class MyParallelServer : public Server {
+class MyParallelServer : public server_side::Server {
   int sockfd;
   ClientHendler *clientHendler;
   bool active;
+  vector<thread> threadList;
  public:
 
   MyParallelServer() = default;
@@ -71,7 +72,8 @@ class MyParallelServer : public Server {
       tv.tv_sec = TIMEOUT_SECONDE;
       tv.tv_usec = TIMEOUT_MILISECONDE;
       while (this->active && select(this->sockfd + 1, &rfds, nullptr, nullptr, &tv)) {
-
+          FD_ZERO(&rfds);
+          FD_SET(this->sockfd, &rfds);
           /* Accept actual connection from the client */
           newsockfd = accept(this->sockfd, (struct sockaddr *) &cli_addr, (socklen_t *) &clilen);
           if (newsockfd < 0) {
@@ -79,16 +81,18 @@ class MyParallelServer : public Server {
           }
 
           /* Write a response to the client */
-          OutputStream outStream(newsockfd);
-          InputStream inputStream(newsockfd);
-
-          thread t1(&MyParallelServer::StartCliendHandlerThread, this, std::ref(inputStream), std::ref(outStream));
-          t1.join();
+          shared_ptr<OutputStream> outStream = make_shared<OutputStream>(newsockfd);
+          shared_ptr<InputStream> inputStream = make_shared<InputStream>(newsockfd);
+          thread t1(&MyParallelServer::StartCliendHandlerThread, this, inputStream, outStream);
+          this->threadList.push_back(std::move(t1));
+      }
+      for (int i = 0; i < this->threadList.size(); ++i) {
+          this->threadList.at(i).join();
       }
   }
 
-  void StartCliendHandlerThread(InputStream &in, OutputStream &out) {
-      this->clientHendler->HandleClient(in, out);
+  void StartCliendHandlerThread(shared_ptr<InputStream> in, shared_ptr<OutputStream> out) {
+      this->clientHendler->HandleClient(*in.get(), *out.get());
   }
 
   virtual void Stop() {

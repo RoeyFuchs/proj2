@@ -43,6 +43,7 @@ class MyClientTestHendler: public ClientHendler{
           vec.push_back(line);
           inputStream>>line;
       }
+
       shared_ptr<MatrixSearchable> matrixSerachable= make_shared<MatrixSearchable>(vec);
       string solution= solver->Solve(matrixSerachable)->ToString();
       outputStream<<solution;
