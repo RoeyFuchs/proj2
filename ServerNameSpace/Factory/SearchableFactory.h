@@ -10,6 +10,11 @@
 template <class P>
 class SearchableFactory{
  public:
+  /**
+   * Create
+   * @param vec
+   * @return shared pointer ro problem
+   */
     virtual shared_ptr<P> Create(vector<std::string> vec)=0;
 };
 #endif //PROJ2_FACTORY_H

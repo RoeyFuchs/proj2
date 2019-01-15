@@ -10,6 +10,11 @@
 template <class S>
 class SolutionFactory{
  public:
+  /**
+   * Create
+   * @param vec
+   * @return pointer to solution of prolem
+   */
    virtual shared_ptr<S> Create(vector<std::string> vec)=0;
 };
 #endif //PROJ2_SOLUTIONFACTORY_H

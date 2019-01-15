@@ -8,6 +8,11 @@
 #include "../Solver/StringReverserSearchable.h"
 class StringSearchableFactory:public SearchableFactory<StringReverserSearchable>{
  public:
+  /**
+   * Create
+   * @param vec
+   * @return shared pointer to searchable
+   */
   virtual shared_ptr<StringReverserSearchable> Create(vector<std::string> vec){
       shared_ptr<StringReverserSearchable> a = make_shared<StringReverserSearchable>(vec);
       return a;

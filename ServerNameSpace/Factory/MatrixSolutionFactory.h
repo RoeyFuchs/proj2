@@ -7,6 +7,11 @@
 #include "../Solver/MatrixSolution.h"
 class MatrixSolutionFactory:public SolutionFactory<MatrixSolution>{
  public:
+ /**
+ * Create
+ * @param vec
+ * @return pointer to matrix solution
+ */
   virtual shared_ptr<MatrixSolution> Create(vector<std::string> vec){
       return make_shared<MatrixSolution>(vec);
   }

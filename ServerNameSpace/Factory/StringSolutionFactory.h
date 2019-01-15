@@ -8,6 +8,11 @@
 #include "SolutionFactory.h"
 class StringSolutionFactory: public SolutionFactory<StringReverserSolution>{
  public:
+  /**
+   * Create
+   * @param vec
+   * @return shared ptr to StringReverserSolution
+   */
   virtual shared_ptr<StringReverserSolution> Create(vector<std::string> vec){
       return make_shared<StringReverserSolution>(vec);
   }

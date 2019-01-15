@@ -15,6 +15,7 @@ class MyClientTestHendler: public ClientHendler{
   shared_ptr<Solver<MatrixSearchable,MatrixSolution>> solver;
  public:
   MyClientTestHendler(){
+      //inject facories, cache manager
       shared_ptr<MatrixSearchableFactory> matrixSerachableFactory=make_shared<MatrixSearchableFactory>();
       shared_ptr<MatrixSolutionFactory> solFactory=make_shared<MatrixSolutionFactory>();
       string searchableMatrixName=typeid(MatrixSearchable).name();
@@ -26,10 +27,17 @@ class MyClientTestHendler: public ClientHendler{
       solver= make_shared<Solver<MatrixSearchable,MatrixSolution>>
           (cacheManager,aStar);
   }
+  /**
+   * HandleClient
+   * @param inputStream
+   * @param outputStream
+   * The function gets  an input stream, read a problem and resove it
+   */
   virtual void HandleClient(InputStream& inputStream, OutputStream& outputStream){
       string line;
       vector<string> vec;
       inputStream>>line;
+      //run untill the end of problem
       while (line!= END){
           cout<<line<<endl;
           vec.push_back(line);
