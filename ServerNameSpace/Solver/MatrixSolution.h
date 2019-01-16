@@ -13,7 +13,6 @@ class MatrixSolution : public Solution<int> {
   std::string solution;
 
  public:
-
    MatrixSolution(shared_ptr<State<shared_ptr<Point>>> point) {
        this->finalPoint = point;
   }
@@ -24,6 +23,10 @@ class MatrixSolution : public Solution<int> {
        }
        this->solution = sol;
    }
+   /**
+    * ToString
+    * @return string value of solution
+    */
   string ToString() {
       if(this->solution.empty()) {
           this->solution = MakeStringFromState();
@@ -31,6 +34,10 @@ class MatrixSolution : public Solution<int> {
       return this->solution;
   }
  private:
+  /**
+   * MakeStringFromState
+   * @return to string of state
+   */
   string MakeStringFromState() {
       shared_ptr<State<shared_ptr<Point>>> cuurntPoint = this->finalPoint;
       if (cuurntPoint == nullptr) {
@@ -55,7 +62,11 @@ class MatrixSolution : public Solution<int> {
       }
       return MakeDirectionString(dir);
    }
-
+/**
+ * MakeDirectionString
+ * @param dir
+ * @return string of diresction
+ */
   string MakeDirectionString(std::list<directions> dir) {
        std::string str = "{";
        for(auto itr = dir.rbegin(); itr != dir.rend(); ++itr){
@@ -66,6 +77,11 @@ class MatrixSolution : public Solution<int> {
        str += "}";
        return str;
    }
+   /**
+ * addDirectionToString
+ * @param dir
+ * @return string of dirsctinon
+ */
 
   string addDirectionToString(directions dir) {
        switch (dir) {

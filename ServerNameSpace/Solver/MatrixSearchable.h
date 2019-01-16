@@ -19,7 +19,11 @@ class MatrixSearchable : public Searchable<shared_ptr<Point>> {
   int sizeRows;
   int sizeCulm;
  public:
-
+/**
+ * MatrixSearchable
+ * @param vec
+ * constructor
+ */
   MatrixSearchable(vector<string> &vec) : Searchable(vec) {
       this->initialState = vec;
       string startingPoint = vec.at(vec.size() - 2);
@@ -61,9 +65,19 @@ class MatrixSearchable : public Searchable<shared_ptr<Point>> {
       a->SetCost(this->matrix.at(a->GetState()->getY()).at(a->GetState()->getX()));
       return a;
   }
+  /**
+   * IsGoalState
+   * @param state
+   * @return true if current state is goal state or false otherwise
+   */
   virtual bool IsGoalState(shared_ptr<State<shared_ptr<Point>>> state) {
       return *(state->GetState()) == *(this->endPoint.get());
   }
+  /**
+   * GetAllPossiableStates
+   * @param s
+   * @return returns al posibbol states according to current state
+   */
   virtual vector<shared_ptr<State<shared_ptr<Point>>>> GetAllPossiableStates(shared_ptr<State<shared_ptr<Point>>> s) {
       vector<shared_ptr<State<shared_ptr<Point>>>> states;
       //up value
@@ -108,18 +122,28 @@ class MatrixSearchable : public Searchable<shared_ptr<Point>> {
       }
       return states;
   }
-
+/**
+ * IsCostValid
+ * @param cost
+ * @return true if cost is valid or false otherwise
+ */
   bool IsCostValid(double cost) {
       if(cost != WALL) {
           return true;
       }
       return false;
   }
-
+/**
+ * GetEndPoint
+ * @return  end point
+ */
   shared_ptr<State<shared_ptr<Point>>> GetEndPoint() {
       return make_shared<State<shared_ptr<Point>>>(this->endPoint);;
   }
-
+/**
+ * GetMatrix
+ * @return  matrix
+ */
   vector<vector<int>> GetMatrix() {
       return this->matrix;
   }

@@ -10,11 +10,21 @@ class OutputStream : public std::ostream {
   OutputStream(int newsockfd) {
       this->newsockfd = newsockfd;
   }
+  /**
+   * << read char* into outputstream
+   * @param arr
+   * @return  outputstream
+   */
   OutputStream &operator<<(const char* arr) {
       std::string str(arr);
       ::write(this->newsockfd, str.c_str(), str.length());
       return *this;
   }
+  /**
+   * >> read string into outputstream
+   * @param str
+   * @return outputstream
+   */
   OutputStream &operator<<(std::string str) {
       ::write(this->newsockfd, str.c_str(), str.length());
       return *this;

@@ -37,6 +37,7 @@ class AStar : public Searcher<MatrixSearchable, MatrixSolution> {
           }
           open.pop();
           vector<shared_ptr<State<shared_ptr<Point>>>> successor = problem->GetAllPossiableStates(current);
+          //move on all its suceessors
           for(auto children : successor) {
               children->SetComeFrom(current);
               double fVal = GetFValue(children, problem->GetEndPoint());

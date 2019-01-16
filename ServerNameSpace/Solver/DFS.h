@@ -13,6 +13,11 @@ class DFS : public Searcher<MatrixSearchable,MatrixSolution> {
   int visited;
 
  public:
+  /**
+ * Search
+ * @param problem
+ * @return Matrix solution to a problem by dfs algorythm
+ */
   virtual shared_ptr<MatrixSolution> Search(shared_ptr<MatrixSearchable> problem) {
       shared_ptr<State<shared_ptr<Point>>> solution;
       list<shared_ptr<State<shared_ptr<Point>>>> visitedPoints;
