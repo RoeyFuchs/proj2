@@ -80,7 +80,8 @@ class MyParallelServer : public server_side::Server {
       //set a timeout timer
       tv.tv_sec = TIMEOUT_SECONDE;
       tv.tv_usec = TIMEOUT_MILISECONDE;
-      while (this->active && (select(this->sockfd + 1, &rfds, nullptr, nullptr, &tv) || this->first)) {
+      //while (this->active && (select(this->sockfd + 1, &rfds, nullptr, nullptr, &tv) || this->first)) {
+      while (this->active && select(this->sockfd + 1, &rfds, nullptr, nullptr, &tv)) {
           this->first = false;
           FD_ZERO(&rfds);
           FD_SET(this->sockfd, &rfds);
