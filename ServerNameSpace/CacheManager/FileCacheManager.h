@@ -10,17 +10,18 @@
 #include <mutex>
 mutex locker;
 using namespace std;
-#define PATH "cache.txt"
 template<class P, class S>
 class FileCacheManager : public CacheManager<P, S> {
  private:
   std::unordered_map<string, shared_ptr<S>> cachedMap;
   shared_ptr<FileTextHendler<P, S>> fileTextHendler;
+  string path;
  public:
   FileCacheManager(string &searchableFactoryName, shared_ptr<SearchableFactory<P>> searchableFactory,
-                   string &solutionFactoryName, shared_ptr<SolutionFactory<S>> solutionFactory) {
+                   string &solutionFactoryName, shared_ptr<SolutionFactory<S>> solutionFactory,string path) {
       locker.lock();
-      fileTextHendler = make_shared<FileTextHendler<P, S>>(PATH, searchableFactoryName,
+      this->path= path;
+      fileTextHendler = make_shared<FileTextHendler<P, S>>(path, searchableFactoryName,
                                                            searchableFactory, solutionFactoryName, solutionFactory);
       std::unordered_map<shared_ptr<P>, shared_ptr<S>> cachedMap1 =
           fileTextHendler->ReadResolvedProblems();

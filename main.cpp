@@ -1,6 +1,6 @@
 
 
-#include "ServerNameSpace/ClientHendlers/MyClientTestHendler.h"
+#include "ServerNameSpace/ClientHendlers/MyClientHendler.h"
 #include "Tests/MatrixCreator.h"
 #include "Tests/CompareAlgos.h"
 #include "ServerNameSpace/Servers/MyParallelServer.h"
@@ -10,7 +10,7 @@ int main(int argc, char *argv[]) {
     if (argc != 2) {
         exit(1);
     }
-    shared_ptr<ClientHendler>clientHendler = make_shared<MyClientTestHendler>();
+    shared_ptr<ClientHendler>clientHendler = make_shared<MyClientHendler>();
     shared_ptr<MyParallelServer> server = make_shared<MyParallelServer>();
     server->Open(stoi(argv[1]), clientHendler.get());
     server->Start();

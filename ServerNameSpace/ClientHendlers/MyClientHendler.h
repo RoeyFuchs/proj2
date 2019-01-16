@@ -11,10 +11,11 @@
 #include "../Solver/Solver.h"
 #include "../CacheManager/FileCacheManager.h"
 #include "../Solver/AStar.h"
-class MyClientTestHendler: public ClientHendler{
+#define PATH "cache.txt"
+class MyClientHendler: public ClientHendler{
   shared_ptr<Solver<MatrixSearchable,MatrixSolution>> solver;
  public:
-  MyClientTestHendler(){
+  MyClientHendler(){
       //inject facories, cache manager
       shared_ptr<MatrixSearchableFactory> matrixSerachableFactory=make_shared<MatrixSearchableFactory>();
       shared_ptr<MatrixSolutionFactory> solFactory=make_shared<MatrixSolutionFactory>();
@@ -22,7 +23,7 @@ class MyClientTestHendler: public ClientHendler{
       string matrixSolutionName=typeid(MatrixSolution).name();
       shared_ptr<CacheManager<MatrixSearchable,MatrixSolution>> cacheManager
           = make_shared<FileCacheManager<MatrixSearchable,MatrixSolution>> (searchableMatrixName,
-                                                                            matrixSerachableFactory,matrixSolutionName,solFactory);
+                                                                            matrixSerachableFactory,matrixSolutionName,solFactory,PATH);
       shared_ptr<Searcher<MatrixSearchable, MatrixSolution>>  aStar =make_shared<AStar>();
       solver= make_shared<Solver<MatrixSearchable,MatrixSolution>>
           (cacheManager,aStar);

@@ -15,7 +15,7 @@ add_executable(proj2 main.cpp ServerNameSpace/Server.h ServerNameSpace/ClientHen
         ServerNameSpace/Factory/SearchableFactory.h
         ServerNameSpace/Factory/StringSearchableFactory.h ServerNameSpace/Factory/MatrixSearchableFactory.h
         ServerNameSpace/Factory/SolutionFactory.h ServerNameSpace/Factory/StringSolutionFactory.h
-        ServerNameSpace/Solver/MatrixSolution.h Tests/FileCacheManagerTests.h ServerNameSpace/ClientHendlers/MyClientTestHendler.h
+        ServerNameSpace/Solver/MatrixSolution.h Tests/FileCacheManagerTests.h ServerNameSpace/ClientHendlers/MyClientHendler.h
         ServerNameSpace/Factory/MatrixSolutionFactory.h ServerNameSpace/Solver/AStar.h ServerNameSpace/Solver/DFS.h
         ServerNameSpace/Utils/AStarUtils.h ServerNameSpace/Solver/BreadthFirst.h Tests/MatrixCreator.h
-        ServerNameSpace/Solver/Solver.h ServerNameSpace/Servers/MyParallelServer.h)
+        ServerNameSpace/Solver/Solver.h ServerNameSpace/Servers/MyParallelServer.h StringReverserMain.h ServerNameSpace/ClientHendlers/MyTestClientHendler.h)
