@@ -1,9 +1,11 @@
 
 
-#include "ServerNameSpace/ClientHendlers/MyClientHendler.h"
+#include "Proj2/ClientHendlers/MyClientHendler.h"
 #include "Tests/MatrixCreator.h"
 #include "Tests/CompareAlgos.h"
-#include "ServerNameSpace/Servers/MyParallelServer.h"
+#include "Proj2/Servers/MyParallelServer.h"
+#include "Proj2/ClientHendlers/ClientHendler.h"
+#include "Proj2/ClientHendlers/MyClientHendler.h"
 #include <memory.h>
 #include <vector>
 int main(int argc, char *argv[]) {

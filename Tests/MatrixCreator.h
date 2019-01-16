@@ -6,7 +6,7 @@
 #include <vector>
 #include <string>
 #include <memory>
-#include "../ServerNameSpace/Solver/MatrixSearchable.h"
+#include "../Proj2/Solver/MatrixSearchable.h"
 
 static shared_ptr<MatrixSearchable> Create(int x, int y, double chanceForWall) {
     srand (time(NULL));

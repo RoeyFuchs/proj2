@@ -3,10 +3,10 @@
 
 #ifndef PROJ2_COMPAREALGOS_H
 #define PROJ2_COMPAREALGOS_H
-#include "../ServerNameSpace/Solver/BFS.h"
-#include "../ServerNameSpace/Solver/DFS.h"
-#include "../ServerNameSpace/Solver/AStar.h"
-#include "../ServerNameSpace/Solver/BreadthFirst.h"
+#include "../Proj2/Solver/BFS.h"
+#include "../Proj2/Solver/DFS.h"
+#include "../Proj2/Solver/AStar.h"
+#include "../Proj2/Solver/BreadthFirst.h"
 #include "MatrixCreator.h"
 #include <iostream>
 #include <fstream>
