@@ -12,13 +12,14 @@
 #include <string.h>
 #include <sys/socket.h>
 #include <thread>
-#define TIMEOUT_SECONDE 20
+#define TIMEOUT_SECONDE 5
 #define TIMEOUT_MILISECONDE 0
 class MyParallelServer : public server_side::Server {
   int sockfd;
   ClientHendler *clientHendler;
   bool active;
   vector<thread> threadList;
+  bool first = true;
  public:
 
   MyParallelServer() = default;
@@ -79,7 +80,8 @@ class MyParallelServer : public server_side::Server {
       //set a timeout timer
       tv.tv_sec = TIMEOUT_SECONDE;
       tv.tv_usec = TIMEOUT_MILISECONDE;
-      while (this->active && select(this->sockfd + 1, &rfds, nullptr, nullptr, &tv)) {
+      while (this->active && (select(this->sockfd + 1, &rfds, nullptr, nullptr, &tv) || this->first)) {
+          this->first = false;
           FD_ZERO(&rfds);
           FD_SET(this->sockfd, &rfds);
           /* Accept actual connection from the client */

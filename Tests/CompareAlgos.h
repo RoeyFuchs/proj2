@@ -26,8 +26,8 @@ static void Run() {
     time_t start,end;
     double dif;
 
-    for(int i = 10; i <=10; i+=10) {
-        shared_ptr<MatrixSearchable>  smat = Create(i, i, 0);
+    for(int i = 10; i <=50; i+=5) {
+        shared_ptr<MatrixSearchable>  smat = Create(i, i, 0.16);
         graphs << i << " " << i << endl;
         graphs << to_string(smat->GetInitialState()->GetState()->getX()) + "," + to_string(smat->GetInitialState()->GetState()->getY()) << endl;
         graphs << to_string(smat->GetEndPoint()->GetState()->getX()) + "," + to_string(smat->GetEndPoint()->GetState()->getY()) << endl;
