@@ -19,7 +19,7 @@ class MyParallelServer : public server_side::Server {
   ClientHendler *clientHendler;
   bool active;
   vector<thread> threadList;
-  bool first = true;
+  bool first;
  public:
 
   MyParallelServer() = default;
@@ -68,6 +68,7 @@ class MyParallelServer : public server_side::Server {
  * MakeConnection- create connection with client
  */
   void MakeConnection() {
+      this->first = true;
       listen(this->sockfd, SOMAXCONN);
 
       int newsockfd, clilen, n;
@@ -80,22 +81,20 @@ class MyParallelServer : public server_side::Server {
       //set a timeout timer
       tv.tv_sec = TIMEOUT_SECONDE;
       tv.tv_usec = TIMEOUT_MILISECONDE;
-      //while (this->active && (select(this->sockfd + 1, &rfds, nullptr, nullptr, &tv) || this->first)) {
-      while (this->active && select(this->sockfd + 1, &rfds, nullptr, nullptr, &tv)) {
+      while (this->active && (this->first || select(this->sockfd + 1, &rfds, nullptr, nullptr, &tv))) {
           this->first = false;
-          FD_ZERO(&rfds);
-          FD_SET(this->sockfd, &rfds);
           /* Accept actual connection from the client */
           newsockfd = accept(this->sockfd, (struct sockaddr *) &cli_addr, (socklen_t *) &clilen);
           if (newsockfd < 0) {
               throw runtime_error(string("ERROR on accept"));
           }
-
           /* Write a response to the client */
           shared_ptr<OutputStream> outStream = make_shared<OutputStream>(newsockfd);
           shared_ptr<InputStream> inputStream = make_shared<InputStream>(newsockfd);
           thread t1(&MyParallelServer::StartCliendHandlerThread, this, inputStream, outStream);
           this->threadList.push_back(std::move(t1));
+          FD_ZERO(&rfds);
+          FD_SET(this->sockfd, &rfds);
       }
       for (int i = 0; i < this->threadList.size(); ++i) {
           this->threadList.at(i).join();
