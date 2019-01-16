@@ -5,8 +5,8 @@
 #ifndef PROJ2_FILECACHEMANAGERTESTS_H
 #define PROJ2_FILECACHEMANAGERTESTS_H
 
-#include "../ServerNameSpace/CacheManager/FileCacheManager.h"
-#include "../ServerNameSpace/Solver/StringReverserSearcher.h"
+#include "../Proj2/CacheManager/FileCacheManager.h"
+#include "../Proj2/Solver/StringReverserSearcher.h"
 #include <memory.h>
 #include <vector>
 /*
