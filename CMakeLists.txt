@@ -18,4 +18,4 @@ add_executable(proj2 main.cpp ServerNameSpace/Server.h ServerNameSpace/ClientHen
         ServerNameSpace/Solver/MatrixSolution.h Tests/FileCacheManagerTests.h ServerNameSpace/ClientHendlers/MyClientTestHendler.h
         ServerNameSpace/Factory/MatrixSolutionFactory.h ServerNameSpace/Solver/AStar.h ServerNameSpace/Solver/DFS.h
         ServerNameSpace/Utils/AStarUtils.h ServerNameSpace/Solver/BreadthFirst.h Tests/MatrixCreator.h
-        ServerNameSpace/Solver/Solver.h ServerNameSpace/Servers/MyParallelServer.h)
+        ServerNameSpace/Solver/Solver.h ServerNameSpace/Servers/MyParallelServer.h ServerNameSpace/Utils/BreatdhUtils.h)
