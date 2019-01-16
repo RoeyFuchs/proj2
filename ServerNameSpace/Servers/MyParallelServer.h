@@ -22,7 +22,12 @@ class MyParallelServer : public server_side::Server {
  public:
 
   MyParallelServer() = default;
-
+/**
+ * Open
+ * @param port
+ * @param clientHendler
+ * the function opens socket for new client hendler
+ */
   virtual void Open(int port, ClientHendler *clientHendler) {
       this->clientHendler = clientHendler;
       int sockfd, newsockfd, clilen;
@@ -50,15 +55,18 @@ class MyParallelServer : public server_side::Server {
       this->active = true;
 
   }
-
+/**
+ * start- open a thread to server client stream
+ */
   void Start() {
       //open a thread to server-client stream
       thread t1(&MyParallelServer::MakeConnection, this);
       t1.join();
   }
-
+/**
+ * MakeConnection- create connection with client
+ */
   void MakeConnection() {
-      //only 1 at time - serial server
       listen(this->sockfd, SOMAXCONN);
 
       int newsockfd, clilen, n;
@@ -94,7 +102,9 @@ class MyParallelServer : public server_side::Server {
   void StartCliendHandlerThread(shared_ptr<InputStream> in, shared_ptr<OutputStream> out) {
       this->clientHendler->HandleClient(*in.get(), *out.get());
   }
-
+/**
+ * Stop th server
+ */
   virtual void Stop() {
       this->active = false;
       close(this->sockfd);

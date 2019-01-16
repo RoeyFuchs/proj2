@@ -16,6 +16,10 @@ public:
             solution+= sol[i];
         }
     }
+    /**
+     * Tostring - transfer string reverser searchable to string representation
+     * @return
+     */
     string ToString(){
         return this->solution;
     }

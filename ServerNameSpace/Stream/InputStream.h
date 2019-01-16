@@ -16,6 +16,10 @@ class InputStream : public std::istream {
   InputStream(int newsockfd) {
       this->newsockfd = newsockfd;
   }
+  /**
+   * >> write into input stream
+   * @param str
+   */
   void operator>>(std::string& str) {
       char buffer[MAX_CHARS] = {};
       if(buff.empty()) {
