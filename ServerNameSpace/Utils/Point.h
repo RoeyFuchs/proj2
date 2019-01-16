@@ -17,10 +17,19 @@ class Point{
   int getY() const {
       return this->y;
   }
-
+/**
+ * == -compere points
+ * @param point
+ * @return true if points are equal or false otherwise
+ */
   bool operator==(const Point& point) const {
       return (this->getX() == point.getX() && this->getY() == point.getY());
   }
+  /**
+   * <
+   * @param p
+   * @return  true if this< giver point or false otherwise
+   */
   bool operator<(const Point p) const {
       return (this->getX()+this->getY() < p.getX()+p.getY());
   }

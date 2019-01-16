@@ -39,6 +39,12 @@ class CompareStepAStar {
 
 
 };
+/**
+ * CheckIfCostBetterInPriorityQueueAStar
+ * @param val
+ * @param que
+ * @return  true if there is better cost in priority queue or false otherwise
+ */
 bool CheckIfCostBetterInPriorityQueueAStar(std::shared_ptr<State<std::shared_ptr<Point>>> val,
                                       std::priority_queue<std::shared_ptr<State<std::shared_ptr<Point>>>,
                                       vector<std::shared_ptr<State<std::shared_ptr<Point>>>>,
@@ -101,7 +107,12 @@ static bool CheckIfValueInsideListAStar(std::shared_ptr<State<std::shared_ptr<Po
 }
 
 
-
+/**
+ * check if a value is inside a queue
+ * @param val
+ * @param que
+ * @return true or false
+ */
 
 static bool CheckIfValueInSidePriorityQueueAStar(std::shared_ptr<State<std::shared_ptr<Point>>> val,
                                                  std::priority_queue<std::shared_ptr<State<std::shared_ptr<Point>>>,
