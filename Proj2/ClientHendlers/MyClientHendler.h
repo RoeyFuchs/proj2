@@ -40,7 +40,6 @@ class MyClientHendler: public ClientHendler{
       inputStream>>line;
       //run untill the end of problem
       while (line!= END){
-          cout<<line<<endl;
           vec.push_back(line);
           inputStream>>line;
       }

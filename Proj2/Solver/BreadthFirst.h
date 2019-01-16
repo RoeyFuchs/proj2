@@ -46,39 +46,6 @@ class BreadthFirst {
       shared_ptr<MatrixSolution> sol = make_shared<MatrixSolution>(this->solution);
       return sol;
   }
-
-  virtual shared_ptr<MatrixSolution> SearchCOP(shared_ptr<MatrixSearchable> problem, ostream* ostream) {
-      this->visited = 0;
-      this->solution = nullptr;
-      queue<shared_ptr<State<shared_ptr<Point>>>> open;
-      queue<shared_ptr<State<shared_ptr<Point>>>> close;
-      open.push(problem->GetInitialState());
-
-      while (!open.empty()) {
-          this->visited++;
-          auto curr = open.front();
-          open.pop();
-          close.push(curr);
-          if (problem->IsGoalState(curr)) {
-              this->solution = curr;
-              break;
-          }
-          vector<shared_ptr<State<shared_ptr<Point>>>> successor = problem->GetAllPossiableStates(curr);
-          for (auto children : successor) {
-              if(CheckIfValueInSidePriorityQueue(children, close)) {
-                  continue;
-              }
-              if(!CheckIfValueInSidePriorityQueue(children, open)) {
-                  children->SetComeFrom(curr);
-                  open.push(children);
-              }
-          }
-      }
-      *ostream << "BreadthFS: " << this->solution->GetPathCost()<<","<< this->visited << endl;
-      shared_ptr<MatrixSolution> sol = make_shared<MatrixSolution>(this->solution);
-      return sol;
-  }
-
 };
 
 #endif //PROJ2_BREADTHFIRST_H
